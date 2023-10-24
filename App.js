@@ -1,28 +1,36 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import Logo from './components/Logo';
-// import Welcome from './components/Welcome';
 import Input from './components/Input';
-import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
 import Account from './components/Account';
+import SignUp from './components/SignUp';
 
-export default function App() {
+const App = () => {
   return (
     <View style={styles.container}>
-      <Logo />
+      <AppContainer />
+      {/* Your existing components can go here */}
+      {/* <Logo /> */}
       {/* <Welcome /> */}
-      <Input />
-      <SignUp/>
-      <Account/>
+      {/* <Input /> */}
+      {/* <LogIn /> */}
+      {/* <Account /> */}
+      <SignUp />
     </View>
   );
-}
- 
+};
+
 const styles = StyleSheet.create({
   container: {
-    flex: 10,
+    flex: 1,
     backgroundColor: '#EEE7DA',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
+
+
+
+
+export default App;

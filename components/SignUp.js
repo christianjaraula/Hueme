@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,11 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -25,20 +26,35 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isDayPickerVisible, setDayPickerVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+  const [username, setUsername] = useState('');
+  const monthPickerRef = useRef(null);
 
-  const showMonthPicker = () => {
-    setMonthPickerVisible(true);
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const toggleMonthPicker = () => {
+    if (monthPickerRef.current) {
+      monthPickerRef.current.scrollTo({ y: 100, animated: true });
+    }
+    setMonthPickerVisible(!isMonthPickerVisible);
   };
 
-  const hideMonthPicker = () => {
-    setMonthPickerVisible(false);
-  };
-
-  const handleMonthConfirm = (date) => {
-    setSelectedMonth(date.getMonth() + 1);
-    hideMonthPicker();
+  const selectMonth = (month) => {
+    setSelectedMonth(month);
+    toggleMonthPicker();
   };
 
   const showYearPicker = () => {
@@ -54,19 +70,6 @@ const SignUp = () => {
     hideYearPicker();
   };
 
-  const showDayPicker = () => {
-    setDayPickerVisible(true);
-  };
-
-  const hideDayPicker = () => {
-    setDayPickerVisible(false);
-  };
-
-  const handleDayConfirm = (date) => {
-    setDay(date.getDate().toString());
-    hideDayPicker();
-  };
-
   const handleProfileImageSelect = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -80,9 +83,8 @@ const SignUp = () => {
       quality: 1,
     });
 
-    if (pickerResult.canceled === false) { // Use "canceled" instead of "cancelled"
-      // Set the selected image as the profile image
-      setProfileImage(pickerResult.assets[0].uri); // Access selected assets through the "assets" array
+    if (pickerResult.canceled === false) {
+      setProfileImage(pickerResult.assets[0].uri);
     }
   };
 
@@ -107,6 +109,21 @@ const SignUp = () => {
             )}
           </View>
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.usernameBox}>
+        <TextInput
+          textAlign="center"
+          placeholder="Enter Username"
+          value={username}
+          onChangeText={(text) => {
+            if (text.length <= 13) {
+              setUsername(text);
+            }
+          }}
+          maxLength={13}
+        />
+        <View style={styles.inputLine}></View>
       </View>
 
       <View style={styles.formContainer}>
@@ -150,27 +167,37 @@ const SignUp = () => {
         <View style={styles.dateContainer}>
           <View style={styles.dateBox}>
             <Text style={styles.label}>Month</Text>
-            <TouchableOpacity onPress={showMonthPicker}>
+            <TouchableOpacity onPress={toggleMonthPicker}>
               <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth}</Text>
             </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={isMonthPickerVisible}
-              mode="date"
-              onConfirm={handleMonthConfirm}
-              onCancel={hideMonthPicker}
-            />
+            {isMonthPickerVisible && (
+              <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#EEE7DA', zIndex: 1  }}>
+                <ScrollView
+                  ref={monthPickerRef}
+                  contentContainerStyle={styles.monthPickerContent}
+                >
+                  {months.map((month, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => selectMonth(month)}
+                      style={styles.monthItem}
+                    >
+                      <Text>{month}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
+            )}
           </View>
 
           <View style={styles.dateBox}>
             <Text style={styles.label}>Day</Text>
-            <TouchableOpacity onPress={showDayPicker}>
-              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{day}</Text>
-            </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={isDayPickerVisible}
-              mode="date"
-              onConfirm={handleDayConfirm}
-              onCancel={hideDayPicker}
+            <TextInput
+              textAlign="center"
+              style={styles.inputBox}
+              placeholder=""
+              value={day}
+              onChangeText={(text) => setDay(text)}
             />
           </View>
 
@@ -235,7 +262,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   inputBox: {
-    width: '100%',
+    width: '99%',
     height: 35,
     borderRadius: 6,
     borderWidth: 1,
@@ -290,9 +317,10 @@ const styles = StyleSheet.create({
   },
   nameBox: {
     flex: 1,
-    marginRight: 10,
+    paddingRight: 1,
   },
   genderBox: {
+    width: '99%',
     marginTop: 10,
     marginBottom: 10,
   },
@@ -301,7 +329,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     borderColor: 'rgba(90, 83, 74, 0.75)',
-    justifyContent: 'center', // Center vertically
+    justifyContent: 'center',
   },
   dateContainer: {
     flexDirection: 'row',
@@ -309,7 +337,7 @@ const styles = StyleSheet.create({
   },
   dateBox: {
     flex: 1,
-    marginRight: 10,
+    paddingRight: 1,
   },
   emailBox: {
     marginTop: 10,
@@ -320,6 +348,35 @@ const styles = StyleSheet.create({
   confirmPasswordBox: {
     marginTop: 10,
   },
+  usernameBox: {
+    marginTop: -15,
+  },
+  inputLine: {
+    marginTop: -5,
+    width: '50%',
+    alignSelf: 'center',
+    height: 1,
+    backgroundColor: 'rgba(90, 83, 74, 0.75)',
+    marginVertical: 5,
+  },
+  monthPicker: {
+    width: '100%',
+    maxHeight: 100,
+    borderColor: 'rgba(90, 83, 74, 0.75)',
+    borderWidth: 1,
+    borderRadius: 6,
+  },
+  monthPickerContent: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+  },
+  monthItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(90, 83, 74, 0.75)',
+  },
+
 });
 
 export default SignUp;

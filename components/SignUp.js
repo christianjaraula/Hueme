@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { Picker } from '@react-native-picker/picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -7,10 +19,72 @@ const SignUp = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
+  const [isMonthPickerVisible, setMonthPickerVisible] = useState(false);
+  const [isYearPickerVisible, setYearPickerVisible] = useState(false);
   const [day, setDay] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isDayPickerVisible, setDayPickerVisible] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+
+  const showMonthPicker = () => {
+    setMonthPickerVisible(true);
+  };
+
+  const hideMonthPicker = () => {
+    setMonthPickerVisible(false);
+  };
+
+  const handleMonthConfirm = (date) => {
+    setSelectedMonth(date.getMonth() + 1);
+    hideMonthPicker();
+  };
+
+  const showYearPicker = () => {
+    setYearPickerVisible(true);
+  };
+
+  const hideYearPicker = () => {
+    setYearPickerVisible(false);
+  };
+
+  const handleYearConfirm = (date) => {
+    setSelectedYear(date.getFullYear());
+    hideYearPicker();
+  };
+
+  const showDayPicker = () => {
+    setDayPickerVisible(true);
+  };
+
+  const hideDayPicker = () => {
+    setDayPickerVisible(false);
+  };
+
+  const handleDayConfirm = (date) => {
+    setDay(date.getDate().toString());
+    hideDayPicker();
+  };
+
+  const handleProfileImageSelect = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert('Permission to access the camera roll is required!');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (pickerResult.canceled === false) { // Use "canceled" instead of "cancelled"
+      // Set the selected image as the profile image
+      setProfileImage(pickerResult.assets[0].uri); // Access selected assets through the "assets" array
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -24,12 +98,15 @@ const SignUp = () => {
       <Text style={styles.createAccountText}>Create an Account</Text>
 
       <View style={styles.profileContainer}>
-        <View style={styles.profileImageContainer}>
-          <Image
-            source={require('../assets/default_profile.png')}
-            style={styles.profileImage}
-          />
-        </View>
+        <TouchableOpacity onPress={handleProfileImageSelect}>
+          <View style={styles.profileImageContainer}>
+            {profileImage ? (
+              <Image source={{ uri: profileImage }} style={styles.profileImage} />
+            ) : (
+              <Image source={require('../assets/default_profile.png')} style={styles.profileImage} />
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.formContainer}>
@@ -37,6 +114,7 @@ const SignUp = () => {
           <View style={styles.nameBox}>
             <Text style={styles.label}>First Name</Text>
             <TextInput
+              textAlign="center"
               style={styles.inputBox}
               placeholder=""
               value={firstName}
@@ -47,6 +125,7 @@ const SignUp = () => {
           <View style={styles.nameBox}>
             <Text style={styles.label}>Last Name</Text>
             <TextInput
+              textAlign="center"
               style={styles.inputBox}
               placeholder=""
               value={lastName}
@@ -57,42 +136,54 @@ const SignUp = () => {
 
         <View style={styles.genderBox}>
           <Text style={styles.label}>Gender</Text>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Select Gender"
-            value={selectedGender}
-            onChangeText={(text) => setSelectedGender(text)}
-          />
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={selectedGender}
+              onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
+            >
+              <Picker.Item label="Male" value="Male" />
+              <Picker.Item label="Female" value="Female" />
+            </Picker>
+          </View>
         </View>
 
         <View style={styles.dateContainer}>
           <View style={styles.dateBox}>
             <Text style={styles.label}>Month</Text>
-            <TextInput
-              style={styles.inputBox}
-              placeholder="Select Month"
-              value={selectedMonth}
-              onChangeText={(text) => setSelectedMonth(text)}
+            <TouchableOpacity onPress={showMonthPicker}>
+              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth}</Text>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isMonthPickerVisible}
+              mode="date"
+              onConfirm={handleMonthConfirm}
+              onCancel={hideMonthPicker}
             />
           </View>
 
           <View style={styles.dateBox}>
             <Text style={styles.label}>Day</Text>
-            <TextInput
-              style={styles.inputBox}
-              placeholder=""
-              value={day}
-              onChangeText={(text) => setDay(text)}
+            <TouchableOpacity onPress={showDayPicker}>
+              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{day}</Text>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isDayPickerVisible}
+              mode="date"
+              onConfirm={handleDayConfirm}
+              onCancel={hideDayPicker}
             />
           </View>
 
           <View style={styles.dateBox}>
             <Text style={styles.label}>Year</Text>
-            <TextInput
-              style={styles.inputBox}
-              placeholder="Select Year"
-              value={selectedYear}
-              onChangeText={(text) => setSelectedYear(text)}
+            <TouchableOpacity onPress={showYearPicker}>
+              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedYear}</Text>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isYearPickerVisible}
+              mode="date"
+              onConfirm={handleYearConfirm}
+              onCancel={hideYearPicker}
             />
           </View>
         </View>
@@ -100,6 +191,7 @@ const SignUp = () => {
         <View style={styles.emailBox}>
           <Text style={styles.label}>Email Address</Text>
           <TextInput
+            textAlign="center"
             style={styles.inputBox}
             placeholder="Enter Email"
             value={email}
@@ -110,6 +202,7 @@ const SignUp = () => {
         <View style={styles.passwordBox}>
           <Text style={styles.label}>Password</Text>
           <TextInput
+            textAlign="center"
             style={styles.inputBox}
             placeholder="Enter Password"
             secureTextEntry={true}
@@ -121,6 +214,7 @@ const SignUp = () => {
         <View style={styles.confirmPasswordBox}>
           <Text style={styles.label}>Confirm Password</Text>
           <TextInput
+            textAlign="center"
             style={styles.inputBox}
             placeholder="Confirm Password"
             secureTextEntry={true}
@@ -185,6 +279,7 @@ const styles = StyleSheet.create({
     height: 35,
     alignItems: 'center',
     textAlign: 'center',
+    marginLeft: 35,
   },
   formContainer: {
     marginTop: 20,
@@ -200,6 +295,13 @@ const styles = StyleSheet.create({
   genderBox: {
     marginTop: 10,
     marginBottom: 10,
+  },
+  pickerContainer: {
+    width: '100%',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(90, 83, 74, 0.75)',
+    justifyContent: 'center', // Center vertically
   },
   dateContainer: {
     flexDirection: 'row',

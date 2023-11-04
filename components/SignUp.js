@@ -182,7 +182,7 @@ const SignUp = () => {
                       onPress={() => selectMonth(month)}
                       style={styles.monthItem}
                     >
-                      <Text>{month}</Text>
+                      <Text>{month}</Text> 
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
@@ -256,7 +256,6 @@ const SignUp = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 350,
     flex: 1,
     backgroundColor: '#EEE7DA',
     padding: 20,
@@ -292,7 +291,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: 'center',
-    marginTop: -300,
+    marginBottom: -350,
+    marginTop: 20,
   },
   icon: {
     width: 121,
@@ -307,6 +307,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     marginLeft: 35,
+    marginTop: 350,
   },
   formContainer: {
     marginTop: 20,

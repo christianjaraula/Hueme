@@ -1,19 +1,32 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import * as Font from 'expo-font';
 
 export default function LogIn() {
-  return (
-    <View style={styles.signupGroup}>
-    <TouchableOpacity style={styles.container}>
-      <Text style={styles.signUp}>Sign Up</Text>
-    </TouchableOpacity>
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        'Familjen Grotesk': require('../assets/fonts/FamiljenGrotesk-Regular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
+
+  return fontLoaded ? (
+    <View style={styles.loginGroup}>
+      <TouchableOpacity style={styles.container}>
+        <Text style={styles.login}>Log In</Text>
+      </TouchableOpacity>
     </View>
-  )
+  ) : null;
 }
 
 const styles = StyleSheet.create({
-  signupGroup:{ // Add spacing between input and Sign Up
-    alignItems: "center",
+  loginGroup: {
+    alignItems: 'center',
     marginTop: 20,
   },
   container: {
@@ -21,13 +34,13 @@ const styles = StyleSheet.create({
     height: 25,
     borderRadius: 6,
     backgroundColor: '#5A534A',
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  signUp: {
+  login: {
     fontSize: 10,
     fontFamily: 'Familjen Grotesk',
     fontWeight: '500',
     color: '#EEE7DA',
-  }
-})
+  },
+});

@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
+import * as Font from 'expo-font';
 
 export default function Input() {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        'Familjen Grotesk': require('../assets/fonts/FamiljenGrotesk-Regular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
+
+  if (!fontLoaded) {
+    // You can return a loading component or null while the font is loading
+    return null;
+  }
+
   return (
     <View style={styles.inputGroup}>
       {/* Email Input */}
@@ -57,3 +75,4 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 });
+

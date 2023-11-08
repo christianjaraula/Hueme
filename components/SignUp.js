@@ -13,7 +13,14 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import Svg, { Path, Defs, Stop, RadialGradient } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
+
+import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft'; // Import your icon component
+import ArrowButtonRight from './SVG/NavigationIcon/ArrowButtonRight'; // Import your icon component
+import TermsOfUse from './TermsOfUse'; // Import the TermsOfUse component
+import LineSVG from './SVG/LineSVG';
+import ProfileContainer from './SignUpComponents/ProfileContainer';
+
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -30,6 +37,7 @@ const SignUp = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [username, setUsername] = useState('');
   const monthPickerRef = useRef(null);
+  const navigation = useNavigation();
 
   const months = [
     'January',
@@ -71,6 +79,8 @@ const SignUp = () => {
     hideYearPicker();
   };
 
+  const handleTermsOfUseClick = () => {};
+
   const handleProfileImageSelect = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -89,6 +99,11 @@ const SignUp = () => {
     }
   };
 
+  const handleNavigateToSkinColorBar = () => {
+    navigation.navigate('SkinColorBar');
+  };
+  
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -99,40 +114,13 @@ const SignUp = () => {
       </View>
 
       <Text style={styles.createAccountText}>Create an Account</Text>
-      <View>
-        <Svg height="2" width="194" style={styles.lineContainer}>
-          <Defs>
-            <RadialGradient
-              id="paint0_radial_222_17"
-              cx="0"
-              cy="0"
-              r="1"
-              gradientUnits="userSpaceOnUse"
-              gradientTransform="translate(96.5 0.999837) scale(97 18769.5)"
-            >
-              <Stop offset="0.255208" stopColor="#2A2D34" stopOpacity="0.5" />
-              <Stop offset="1" stopColor="#2A2D34" stopOpacity="0" />
-            </RadialGradient>
-          </Defs>
-          <Path
-            d="M0 1L193.5 1"
-            stroke="url(#paint0_radial_222_17)"
-            strokeWidth="0.5"
-          />
-        </Svg>
-      </View>
 
-      <View style={styles.profileContainer}>
-        <TouchableOpacity onPress={handleProfileImageSelect}>
-          <View style={styles.profileImageContainer}>
-            {profileImage ? (
-              <Image source={{ uri: profileImage }} style={styles.profileImage} />
-            ) : (
-              <Image source={require('../assets/default_profile.png')} style={styles.profileImage} />
-            )}
-          </View>
-        </TouchableOpacity>
-      </View>
+      <LineSVG />
+
+      <ProfileContainer
+        profileImage={profileImage}
+        handleProfileImageSelect={handleProfileImageSelect}
+      />
 
       <View style={styles.usernameBox}>
         <TextInput
@@ -194,7 +182,7 @@ const SignUp = () => {
               <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth}</Text>
             </TouchableOpacity>
             {isMonthPickerVisible && (
-              <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#EEE7DA', zIndex: 1  }}>
+              <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#EEE7DA', zIndex: 1 }}>
                 <ScrollView
                   ref={monthPickerRef}
                   contentContainerStyle={styles.monthPickerContent}
@@ -205,7 +193,7 @@ const SignUp = () => {
                       onPress={() => selectMonth(month)}
                       style={styles.monthItem}
                     >
-                      <Text>{month}</Text> 
+                      <Text>{month}</Text>
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
@@ -272,6 +260,20 @@ const SignUp = () => {
             onChangeText={(text) => setConfirmPassword(text)}
           />
         </View>
+
+        <TermsOfUse handleTermsOfUseClick={handleTermsOfUseClick} />
+
+        <View style={styles.arrowButton}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <ArrowButtonLeft width={40} height={40} color="#5A534A" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.arrowButton2}>
+          <TouchableOpacity onPress={handleNavigateToSkinColorBar}>
+            <ArrowButtonRight width={40} height={40} color="#5A534A" />
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -288,11 +290,12 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'rgba(90, 83, 74, 0.75)',
+    borderColor: '#5A534ABF',
   },
   label: {
     marginBottom: 5,
     fontWeight: 'bold',
+    fontSize: 10,
   },
   profileContainer: {
     flexDirection: 'row',
@@ -338,6 +341,7 @@ const styles = StyleSheet.create({
   nameContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: -10,
   },
   nameBox: {
     flex: 1,
@@ -352,7 +356,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'rgba(90, 83, 74, 0.75)',
+    borderColor: '#5A534ABF',
     justifyContent: 'center',
   },
   dateContainer: {
@@ -380,13 +384,13 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     height: 1,
-    backgroundColor: 'rgba(90, 83, 74, 0.75)',
+    backgroundColor: '#5A534ABF',
     marginVertical: 5,
   },
   monthPicker: {
     width: '100%',
     maxHeight: 100,
-    borderColor: 'rgba(90, 83, 74, 0.75)',
+    borderColor: '#5A534ABF',
     borderWidth: 1,
     borderRadius: 6,
   },
@@ -398,13 +402,22 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(90, 83, 74, 0.75)',
+    borderBottomColor: '#5A534ABF',
   },
-  lineContainer: {
-    alignSelf: 'center',
-    marginTop: 10,
+  arrowButton: { 
+    marginTop: 20,
+    padding: 10, // Adjust the padding as needed to control the clickable area
+    margin: 10,
+    width: 40, 
+    height: 40, 
   },
-
+  arrowButton2: {
+    width: 40, 
+    height: 40, 
+    adding: 10, // Adjust the padding as needed to control the clickable area
+    marginLeft: 310,
+    top: -40,
+  }
 });
 
 export default SignUp;

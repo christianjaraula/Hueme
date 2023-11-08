@@ -5,17 +5,18 @@ import Svg, { Path, Defs, Stop, RadialGradient } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
 // Import your custom icon components
-import UserIcon from '../components/MyProfileIcons/UserIcon';
-import SecurityIcon from '../components/MyProfileIcons/SecurityIcon';
-import SavedPalettesIcon from '../components/MyProfileIcons/SavedPalettesIcon';
-import TermsOfUseIcon from './MyProfileIcons/TermsOfUseIcon';
-import AboutUsIcon from './MyProfileIcons/AboutUsIcon';
-import FeedbackIcon from './MyProfileIcons/FeedbackIcon';
+import UserIcon from './SVG/MyProfileIcons/UserIcon';
+import SecurityIcon from './SVG/MyProfileIcons/SecurityIcon';
+import SavedPalettesIcon from './SVG/MyProfileIcons/SavedPalettesIcon';
+import TermsOfUseIcon from './SVG/MyProfileIcons/TermsOfUseIcon';
+import AboutUsIcon from './SVG/MyProfileIcons/AboutUsIcon';
+import FeedbackIcon from './SVG/MyProfileIcons/FeedbackIcon';
 
 export default function MyProfile() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const navigation = useNavigation(); // Get the navigation object
+  
   
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function MyProfile() {
   };
 
   const handleUserDetailsPress = () => {
+    navigation.navigate('UserDetails');
     // Implement the action when the "User Details" button is pressed
   };
 
@@ -190,8 +192,8 @@ const styles = StyleSheet.create({
     height: 40,
     flexShrink: 0,
     position: 'absolute',
-    top: 75,
-    left: 350,
+    top: 60,
+    left: 340,
   },
   lineContainer: {
     alignSelf: 'center',
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     color: '#5A534A',
     textAlign: 'center',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 36,
+    fontSize: 25,
     fontWeight: '600',
     marginTop: 10,
   },

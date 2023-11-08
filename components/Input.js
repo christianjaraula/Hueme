@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(90, 83, 74, 0.75)',
     paddingLeft: 10,
   },
+ 
 });
 

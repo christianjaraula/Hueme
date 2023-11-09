@@ -3,15 +3,24 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import * as Font from 'expo-font';
 import { Camera } from 'expo-camera';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
 import ColorBar1Active from './SVG/SkinColorBarIcon/ColorBar1Active';
 import ColorBar2Active from './SVG/SkinColorBarIcon/ColorBar2Active';
 import ColorBar3Active from './SVG/SkinColorBarIcon/ColorBar3Active';
 import ColorBar4Active from './SVG/SkinColorBarIcon/ColorBar4Active';
+import ColorBar5Active from './SVG/SkinColorBarIcon/ColorBar5Active';
+import ColorBar6Active from './SVG/SkinColorBarIcon/ColorBar6Active';
+import ColorBar7Active from './SVG/SkinColorBarIcon/ColorBar7Active';
+import ColorBar8Active from './SVG/SkinColorBarIcon/ColorBar8Active';
 import ColorBar1  from './SVG/SkinColorBarIcon/ColorBar1 ';
 import ColorBar2 from './SVG/SkinColorBarIcon/ColorBar2';
 import ColorBar3 from './SVG/SkinColorBarIcon/ColorBar3';
 import ColorBar4 from './SVG/SkinColorBarIcon/ColorBar4';
-
+import ColorBar5 from './SVG/SkinColorBarIcon/ColorBar5';
+import ColorBar6 from './SVG/SkinColorBarIcon/ColorBar6';
+import ColorBar7 from './SVG/SkinColorBarIcon/ColorBar7';
+import ColorBar8 from './SVG/SkinColorBarIcon/ColorBar8';
+import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft'; // Import your icon component
 
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -20,6 +29,12 @@ const SkinColorBar = () => {
   const [active2, setActive2] = useState(false);
   const [active3, setActive3] = useState(false);
   const [active4, setActive4] = useState(false);
+  const [active5, setActive5] = useState(false);
+  const [active6, setActive6] = useState(false);
+  const [active7, setActive7] = useState(false);
+  const [active8, setActive8] = useState(false);
+
+  const navigation = useNavigation(); // Get the navigation object
 
   useEffect(() => {
     async function loadFont() {
@@ -38,12 +53,36 @@ const SkinColorBar = () => {
     }
     checkCameraPermission();
   }, []);
-
+  const renderBorderColor = () => {
+    if (active1) {
+      return { backgroundColor: '#F5D3B8' }; // Replace with the desired color
+    } else if (active2) {
+      return { backgroundColor: '#EECEA8' }; // Replace with the desired color
+    } else if (active3) {
+      return { backgroundColor: '#F1C693' }; // Replace with the desired color
+    } else if (active4) {
+      return { backgroundColor: '#DCB991' }; // Replace with the desired color
+    } else if (active5) {
+      return { backgroundColor: '#DDA872' }; // Replace with the desired color
+    } else if (active6) {
+      return { backgroundColor: '#C6944F' }; // Replace with the desired color
+    } else if (active7) {
+      return { backgroundColor: '#BD7E48' }; // Replace with the desired color
+    } else if (active8) {
+      return { backgroundColor: '#855225' }; // Replace with the desired color
+    } else {
+      return { backgroundColor: '#EEE7DA' }; // Default color when no button is active
+    }
+  };
   const handleIconClick = () => {
     setActive1(!active1);
     setActive2(false); // Deactivate icon2
     setActive3(false);
     setActive4(false);
+    setActive5(false);
+    setActive6(false);
+    setActive7(false);
+    setActive8(false);
   };
 
   const handleIconClick2 = () => {
@@ -51,6 +90,10 @@ const SkinColorBar = () => {
     setActive1(false); // Deactivate icon1
     setActive3(false);
     setActive4(false);
+    setActive5(false);
+    setActive6(false);
+    setActive7(false);
+    setActive8(false);
   };
 
   const handleIconClick3 = () => {
@@ -58,6 +101,10 @@ const SkinColorBar = () => {
     setActive1(false); // Deactivate icon1
     setActive2(false);
     setActive4(false);
+    setActive5(false);
+    setActive6(false);
+    setActive7(false);
+    setActive8(false);
   };
 
   const handleIconClick4 = () => {
@@ -65,7 +112,56 @@ const SkinColorBar = () => {
     setActive1(false); // Deactivate icon1
     setActive2(false);
     setActive3(false);
+    setActive5(false);
+    setActive6(false);
+    setActive7(false);
+    setActive8(false);
   };
+  const handleIconClick5 = () => {
+    setActive5(!active5);
+    setActive1(false); // Deactivate icon1
+    setActive2(false);
+    setActive3(false);
+    setActive4(false);
+    setActive6(false);
+    setActive7(false);
+    setActive8(false);
+  };
+
+  const handleIconClick6 = () => {
+    setActive6(!active6);
+    setActive1(false); // Deactivate icon1
+    setActive2(false);
+    setActive3(false);
+    setActive4(false);
+    setActive5(false);
+    setActive7(false);
+    setActive8(false);
+  };
+
+  const handleIconClick7 = () => {
+    setActive7(!active7);
+    setActive1(false); // Deactivate icon1
+    setActive2(false);
+    setActive3(false);
+    setActive4(false);
+    setActive5(false);
+    setActive6(false);
+    setActive8(false);
+  };
+
+  const handleIconClick8 = () => {
+    setActive8(!active8);
+    setActive1(false); // Deactivate icon1
+    setActive2(false);
+    setActive3(false);
+    setActive4(false);
+    setActive5(false);
+    setActive6(false);
+    setActive7(false);
+  };
+
+
 
 
   const renderSvg = () => {
@@ -97,6 +193,39 @@ const SkinColorBar = () => {
       return <ColorBar4 />;
     }
   };
+
+  const renderSvg5 = () => {
+    if (active5) {
+      return <ColorBar5Active/>;
+    } else {
+      return <ColorBar5 />;
+    }
+  };
+
+  const renderSvg6 = () => {
+    if (active6) {
+      return <ColorBar6Active/>;
+    } else {
+      return <ColorBar6 />;
+    }
+  };
+
+  const renderSvg7 = () => {
+    if (active7) {
+      return <ColorBar7Active/>;
+    } else {
+      return <ColorBar7 />;
+    }
+  };
+  
+  const renderSvg8 = () => {
+    if (active8) {
+      return <ColorBar8Active/>;
+    } else {
+      return <ColorBar8 />;
+    }
+  };
+  
   
   
   return fontLoaded && cameraPermission === 'granted' ? (
@@ -128,7 +257,7 @@ const SkinColorBar = () => {
         />
       </Svg>
       <View style={styles.borderContainer}>
-        <View style={styles.border} />
+        <View style={[styles.border, renderBorderColor()]} />
         <View style={styles.cameraContainer}>
           <Camera style={styles.camera} type={Camera.Constants.Type.front} />
         </View>
@@ -146,6 +275,24 @@ const SkinColorBar = () => {
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick4} style={styles.iconContainerStyle4}>
           {renderSvg4()} 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleIconClick5} style={styles.iconContainerStyle5}>
+          {renderSvg5()} 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleIconClick6} style={styles.iconContainerStyle6}>
+          {renderSvg6()} 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleIconClick7} style={styles.iconContainerStyle7}>
+          {renderSvg7()} 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleIconClick8} style={styles.iconContainerStyle8}>
+          {renderSvg8()} 
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.arrowButton}
+          onPress={() => navigation.goBack()}
+        >
+          <ArrowButtonLeft width={40} height={40} color='#5A534A' />
         </TouchableOpacity>
       </View>
     </View>
@@ -203,7 +350,8 @@ const styles = StyleSheet.create({
   camera: {
     width: 150,
     height: 150,
-    borderRadius: 1000, // Make it oval
+    borderRadius: 75, // Make it a perfect circle by setting borderRadius to half of the width and height
+    overflow: 'hidden', // Add this line to ensure the circular shape is maintained
   },
   skinColorText: {
     color: 'rgba(74, 66, 56, 0.75)',
@@ -218,8 +366,8 @@ const styles = StyleSheet.create({
     marginRight: 170,
   },
   iconContainerStyle: {
-    marginLeft: 60,
-    right: 130,
+    marginLeft: 215,
+    right: 125,
     marginTop: 10,
   },
   iconContainerStyle2: {
@@ -227,16 +375,38 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   iconContainerStyle3: {
-    right: 110,
+    right: 115,
     marginTop: 10,
   },
   iconContainerStyle4: {
+    right: 110,
+    marginTop: 10,
+  },
+  iconContainerStyle5: {
+    right: 105,
+    marginTop: 10,
+  },
+  iconContainerStyle6: {
     right: 100,
+    marginTop: 10,
+  },
+  iconContainerStyle7: {
+    right: 95,
+    marginTop: 10,
+  },
+  iconContainerStyle8: {
+    right: 90,
     marginTop: 10,
   },
   buttonContainer: {
     flexDirection: 'row', // Arrange buttons horizontally
     marginTop: 10,
+    marginBottom: 20,
+  },
+  arrowButton: {
+    position: 'absolute',
+    marginTop: 240,
+    left: 105,
   },
 });
 

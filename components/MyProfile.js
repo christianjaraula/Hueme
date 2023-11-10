@@ -264,11 +264,13 @@ const styles = StyleSheet.create({
     marginRight: -250, // Adjust this value to move the icon to the right
   },
   logoutButton: {
-    width: 325,
+    width: 100,
     height: 40,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 1,
+    marginTop: 40,
   },
   logoutText: {
     color: '#5A534A',

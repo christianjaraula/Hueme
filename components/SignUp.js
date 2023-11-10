@@ -102,6 +102,7 @@ const SignUp = () => {
   const handleNavigateToSkinColorBar = () => {
     navigation.navigate('SkinColorBar');
   };
+
   
 
   return (
@@ -414,7 +415,7 @@ const styles = StyleSheet.create({
   arrowButton2: {
     width: 40, 
     height: 40, 
-    adding: 10, // Adjust the padding as needed to control the clickable area
+    padding: 10, // Adjust the padding as needed to control the clickable area
     marginLeft: 310,
     top: -40,
   }

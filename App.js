@@ -1,15 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
-import Logo from './components/Logo';
-import Input from './components/Input';
-import Account from './components/Account';
-import LogIn from './components/LogIn'; // Uncomment the import
 import SignUp from './components/SignUp';
 import MyProfile from './components/MyProfile';
 import UserDetails from './components/MyProfleComponents/UserDetails';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SkinColorBar from './components/SkinColorBar';
+import Display from './components/Display';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +26,7 @@ const App = () => {
 
 const FrontDisplay = () => {
   const navigation = useNavigation();
+
   const handleLogInPress = () => {
     // Implement any Log In logic here if needed
 
@@ -47,15 +45,13 @@ const FrontDisplay = () => {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.content}>
-          <Logo />
-          <Input />
-          <LogIn onPress={handleLogInPress} />
-          <Account />
+          <Display onPress={handleLogInPress} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

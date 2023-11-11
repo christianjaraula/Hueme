@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import * as Font from 'expo-font';
 import { Camera } from 'expo-camera';
+import { RNCamera } from 'react-native-camera';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import ColorBar1Active from './SVG/SkinColorBarIcon/ColorBar1Active';
@@ -21,6 +22,8 @@ import ColorBar6 from './SVG/SkinColorBarIcon/ColorBar6';
 import ColorBar7 from './SVG/SkinColorBarIcon/ColorBar7';
 import ColorBar8 from './SVG/SkinColorBarIcon/ColorBar8';
 import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft'; // Import your icon component
+import CameraDisplay from './SkinColorBarComponents/CameraDisplay';
+
 
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -259,7 +262,7 @@ const SkinColorBar = () => {
       <View style={styles.borderContainer}>
         <View style={[styles.border, renderBorderColor()]} />
         <View style={styles.cameraContainer}>
-          <Camera style={styles.camera} type={Camera.Constants.Type.front} />
+        <CameraDisplay />
         </View>
       </View>
       <Text style={styles.skinColorText}>Skin Color</Text>

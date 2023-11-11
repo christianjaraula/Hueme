@@ -1,7 +1,7 @@
 import React from 'react';
 import { Svg, Path, G } from 'react-native-svg';
 
-const FaceShapeSvg = () => {
+const FaceShape = () => {
   return (
     <Svg version="1.0" xmlns="http://www.w3.org/2000/svg"
     width="185.000000pt" height="263.000000pt" viewBox="0 0 185.000000 263.000000"
@@ -25,4 +25,4 @@ const FaceShapeSvg = () => {
   );
 };
 
-export default FaceShapeSvg;
+export default FaceShape;

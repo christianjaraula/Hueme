@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import * as Font from 'expo-font';
 import { Camera } from 'expo-camera';
-import { RNCamera } from 'react-native-camera';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import ColorBar1Active from './SVG/SkinColorBarIcon/ColorBar1Active';
@@ -13,7 +12,7 @@ import ColorBar5Active from './SVG/SkinColorBarIcon/ColorBar5Active';
 import ColorBar6Active from './SVG/SkinColorBarIcon/ColorBar6Active';
 import ColorBar7Active from './SVG/SkinColorBarIcon/ColorBar7Active';
 import ColorBar8Active from './SVG/SkinColorBarIcon/ColorBar8Active';
-import ColorBar1  from './SVG/SkinColorBarIcon/ColorBar1 ';
+import ColorBar1 from './SVG/SkinColorBarIcon/ColorBar1 ';
 import ColorBar2 from './SVG/SkinColorBarIcon/ColorBar2';
 import ColorBar3 from './SVG/SkinColorBarIcon/ColorBar3';
 import ColorBar4 from './SVG/SkinColorBarIcon/ColorBar4';
@@ -21,9 +20,8 @@ import ColorBar5 from './SVG/SkinColorBarIcon/ColorBar5';
 import ColorBar6 from './SVG/SkinColorBarIcon/ColorBar6';
 import ColorBar7 from './SVG/SkinColorBarIcon/ColorBar7';
 import ColorBar8 from './SVG/SkinColorBarIcon/ColorBar8';
-import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft'; // Import your icon component
+import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft';
 import CameraDisplay from './SkinColorBarComponents/CameraDisplay';
-
 
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -37,7 +35,7 @@ const SkinColorBar = () => {
   const [active7, setActive7] = useState(false);
   const [active8, setActive8] = useState(false);
 
-  const navigation = useNavigation(); // Get the navigation object
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function loadFont() {
@@ -47,9 +45,7 @@ const SkinColorBar = () => {
       setFontLoaded(true);
     }
     loadFont();
-  }, []);
 
-  useEffect(() => {
     async function checkCameraPermission() {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setCameraPermission(status);

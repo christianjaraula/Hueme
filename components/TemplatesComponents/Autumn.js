@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     top: -55,
   },
   image: {
-    width: 345, // Set the width of the image as needed
-    height: 100, // Set the height of the image as needed 
+    width: 345, 
+    height: 100, 
     top: 10,
     right: 109,
     flexShrink: 0,

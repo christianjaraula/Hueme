@@ -14,22 +14,20 @@ export default function Templates({ }) {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
-  async function loadFont() {
-    try {
-      await Font.loadAsync({
-        'Georama': require('../assets/fonts/Georama-Regular.ttf'),
-        // Other fonts...
-      });
-      setFontLoaded(true);
-    } catch (error) {
-      console.error('Error loading fonts:', error);
+    async function loadFont() {
+      try {
+        await Font.loadAsync({
+          'Georama': require('../assets/fonts/Georama-Regular.ttf'),
+          // Other fonts...
+        });
+        setFontLoaded(true);
+      } catch (error) {
+        console.error('Error loading fonts:', error);
+      }
     }
-  }
 
-  loadFont();
-}, []);
-
-
+    loadFont();
+  }, []);
 
   if (!fontLoaded) {
     return null;
@@ -68,10 +66,10 @@ export default function Templates({ }) {
         />
       </Svg>
       <View style={styles.buttonContainer}>
-      <Spring/>
-      <Summer/>
-      <Autumn/>
-      <Winter/>
+        <Spring />
+        <Summer />
+        <Autumn />
+        <Winter />
       </View>
     </View>
   );
@@ -79,8 +77,10 @@ export default function Templates({ }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#F0EDE7',
+    flex: 1,
+    justifyContent: 'center',
   },
   arrowButton: {
     position: 'absolute',
@@ -88,23 +88,21 @@ const styles = StyleSheet.create({
     right: 40,
   },
   colorBarText: {
-    position: 'absolute',
     color: '#5A534A',
     fontSize: 36,
     fontWeight: '500',
-    marginLeft: 40,
-    top: 50, 
+    marginRight: 200,
+    top: -30,
   },
   lineContainer: {
-    right: -40,
-    top: 100,
+    right: 70,
+    top: -20,
   },
   buttonContainer: {
-    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
     top: 140,
     marginBottom: 20,
-    right: 15,
-  }
+    top: 20,
+  },
 });

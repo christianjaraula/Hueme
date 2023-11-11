@@ -88,7 +88,7 @@ const SkinColorBar = () => {
     } else if (active8) {
       return { backgroundColor: '#855225' }; // Replace with the desired color
     } else {
-      return { backgroundColor: '#EEE7DA' }; // Default color when no button is active
+      return { backgroundColor: '#F0EDE7' }; // Default color when no button is active
     }
   };
   const handleIconClick = () => {
@@ -332,7 +332,7 @@ const SkinColorBar = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EEE7DA',
+    backgroundColor: '#F0EDE7',
     alignItems: 'center',
     justifyContent: 'center',
   },

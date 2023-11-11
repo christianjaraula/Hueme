@@ -183,7 +183,7 @@ const SignUp = () => {
               <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth}</Text>
             </TouchableOpacity>
             {isMonthPickerVisible && (
-              <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#EEE7DA', zIndex: 1 }}>
+              <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#F0EDE7', zIndex: 1 }}>
                 <ScrollView
                   ref={monthPickerRef}
                   contentContainerStyle={styles.monthPickerContent}
@@ -283,7 +283,7 @@ const SignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EEE7DA',
+    backgroundColor: '#F0EDE7',
     padding: 20,
   },
   inputBox: {

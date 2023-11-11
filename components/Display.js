@@ -81,7 +81,7 @@ export default function Display() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EEE7DA',
+    backgroundColor: '#F0EDE7',
     alignItems: 'center',
     paddingTop: 50,
   },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: 'Familjen Grotesk',
     fontWeight: '500',
-    color: '#EEE7DA',
+    color: '#F0EDE7',
   },
   account: {
     flexDirection: 'row',

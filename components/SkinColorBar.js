@@ -21,7 +21,9 @@ import ColorBar6 from './SVG/SkinColorBarIcon/ColorBar6';
 import ColorBar7 from './SVG/SkinColorBarIcon/ColorBar7';
 import ColorBar8 from './SVG/SkinColorBarIcon/ColorBar8';
 import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft';
+import ArrowButtonRight from './SVG/NavigationIcon/ArrowButtonRight';
 import CameraDisplay from './SkinColorBarComponents/CameraDisplay';
+import { useRoute } from '@react-navigation/native';
 
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -34,9 +36,10 @@ const SkinColorBar = () => {
   const [active6, setActive6] = useState(false);
   const [active7, setActive7] = useState(false);
   const [active8, setActive8] = useState(false);
+  const [cameraVisible, setCameraVisible] = useState(true);
 
   const navigation = useNavigation();
-
+  const route = useRoute();
   useEffect(() => {
     async function loadFont() {
       await Font.loadAsync({
@@ -46,12 +49,27 @@ const SkinColorBar = () => {
     }
     loadFont();
 
+    // Move the camera permission logic to the main useEffect
     async function checkCameraPermission() {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setCameraPermission(status);
+      try {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        setCameraPermission(status);
+      } catch (error) {
+        console.error('Error requesting camera permission:', error);
+      }
     }
+
     checkCameraPermission();
   }, []);
+
+  useEffect(() => {
+    // Check if the component is navigated to from Templates
+    const params = route.params || {};
+    if ('cameraVisible' in params) {
+      setCameraVisible(params.cameraVisible);
+    }
+  }, [route]);
+
   const renderBorderColor = () => {
     if (active1) {
       return { backgroundColor: '#F5D3B8' }; // Replace with the desired color
@@ -224,6 +242,11 @@ const SkinColorBar = () => {
       return <ColorBar8 />;
     }
   };
+
+  const handleNavigateToTemplates = () => {
+    setCameraVisible(false);
+    navigation.navigate('Templates');
+  };
   
   
   
@@ -257,9 +280,11 @@ const SkinColorBar = () => {
       </Svg>
       <View style={styles.borderContainer}>
         <View style={[styles.border, renderBorderColor()]} />
+        {cameraVisible && (
         <View style={styles.cameraContainer}>
         <CameraDisplay />
         </View>
+        )}
       </View>
       <Text style={styles.skinColorText}>Skin Color</Text>
       <View style={styles.buttonContainer}>
@@ -292,6 +317,12 @@ const SkinColorBar = () => {
           onPress={() => navigation.goBack()}
         >
           <ArrowButtonLeft width={40} height={40} color='#5A534A' />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleNavigateToTemplates}
+          style={styles.arrowButton2} 
+        >
+          <ArrowButtonRight width={40} height={40} color="#5A534A" />
         </TouchableOpacity>
       </View>
     </View>
@@ -407,6 +438,11 @@ const styles = StyleSheet.create({
     marginTop: 240,
     left: 105,
   },
+  arrowButton2: {
+    position: 'absolute',
+    marginTop: 240,
+    right: 105,
+  }
 });
 
 export default SkinColorBar;

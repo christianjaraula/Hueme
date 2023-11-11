@@ -7,6 +7,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SkinColorBar from './components/SkinColorBar';
 import Display from './components/Display';
+import Templates from './components/Templates';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name="UserDetails" component={UserDetails} options={{ headerShown: false }} />
         <Stack.Screen name="SkinColorBar" component={SkinColorBar} options={{ headerShown: false }} />
+        <Stack.Screen name="Templates" component={Templates} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

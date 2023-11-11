@@ -7,7 +7,25 @@ export default function CameraDisplay() {
   const cameraRef = useRef(null);
 
   useEffect(() => {
-    requestCameraPermissions();
+    const initCamera = async () => {
+      const cameraStatus = await requestCameraPermissions();
+
+      if (cameraStatus === PermissionsAndroid.RESULTS.GRANTED) {
+        // Start the camera preview
+        if (cameraRef.current) {
+          cameraRef.current.resumePreview();
+        }
+      }
+    };
+
+    initCamera();
+
+    return () => {
+      // Pause the camera preview when the component unmounts or navigates away
+      if (cameraRef.current) {
+        cameraRef.current.pausePreview();
+      }
+    };
   }, []);
 
   const requestCameraPermissions = async () => {
@@ -21,13 +39,15 @@ export default function CameraDisplay() {
         },
       );
 
-      setHasCameraPermission(cameraStatus === PermissionsAndroid.RESULTS.GRANTED);
+      setHasCameraPermission(cameraStatus);
+      return cameraStatus; // Return the status for further use
     } catch (err) {
       console.error('Error requesting camera permission:', err);
+      return null;
     }
   };
 
-  if (hasCameraPermission === null) {
+  if (hasCameraPermission !== PermissionsAndroid.RESULTS.GRANTED) {
     return <View />;
   }
 
@@ -38,7 +58,9 @@ export default function CameraDisplay() {
           style={styles.camera}
           type={Camera.Constants.Type.front}
           ratio={'16:9'}
-          ref={cameraRef}
+          ref={(ref) => {
+            cameraRef.current = ref;
+          }}
         />
       </View>
     </View>

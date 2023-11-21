@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   lineContainer: {
     right: 70,
-    top: -20,
+    top: -25,
   },
   buttonContainer: {
     alignItems: 'center',

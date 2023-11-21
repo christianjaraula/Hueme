@@ -1,19 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { StyleSheet, View, PermissionsAndroid } from 'react-native';
+import { StyleSheet, View, PermissionsAndroid, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 
 export default function CameraDisplay() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const cameraRef = useRef(null);
+  const [zoomLevel, setZoomLevel] = useState(0.3); // Set the initial zoom level (e.g., zoomed in)
 
   useEffect(() => {
     const initCamera = async () => {
       const cameraStatus = await requestCameraPermissions();
 
       if (cameraStatus === PermissionsAndroid.RESULTS.GRANTED) {
-        // Start the camera preview
         if (cameraRef.current) {
           cameraRef.current.resumePreview();
+          // Set the initial zoom level
+          cameraRef.current.zoom = zoomLevel;
         }
       }
     };
@@ -21,12 +23,11 @@ export default function CameraDisplay() {
     initCamera();
 
     return () => {
-      // Pause the camera preview when the component unmounts or navigates away
       if (cameraRef.current) {
         cameraRef.current.pausePreview();
       }
     };
-  }, []);
+  }, [zoomLevel]);
 
   const requestCameraPermissions = async () => {
     try {
@@ -40,7 +41,7 @@ export default function CameraDisplay() {
       );
 
       setHasCameraPermission(cameraStatus);
-      return cameraStatus; // Return the status for further use
+      return cameraStatus;
     } catch (err) {
       console.error('Error requesting camera permission:', err);
       return null;
@@ -57,7 +58,7 @@ export default function CameraDisplay() {
         <Camera
           style={styles.camera}
           type={Camera.Constants.Type.front}
-          ratio={'16:9'}
+          zoom={zoomLevel}
           ref={(ref) => {
             cameraRef.current = ref;
           }}

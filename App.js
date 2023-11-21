@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import SignUp from './components/SignUp';
 import MyProfile from './components/MyProfile';
 import UserDetails from './components/MyProfleComponents/UserDetails';
@@ -37,23 +37,13 @@ const FrontDisplay = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
-      enabled
-    >
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-      >
-        <View style={styles.content}>
-          <Display onPress={handleLogInPress} />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Display onPress={handleLogInPress} />
+      </View>
+    </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

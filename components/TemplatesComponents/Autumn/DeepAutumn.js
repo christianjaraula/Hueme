@@ -5,6 +5,8 @@ import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import ArrowButtonLeft from '../../SVG/NavigationIcon/ArrowButtonLeft';
 import Savedbutton from '../../SVG/ColorScheme/savedsvg';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from '../../scalingUtils'; 
+
 
 export default function CameraDisplay() {
   const cameraRef = useRef(null);
@@ -109,41 +111,41 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#5A534A',
-    top: 90,
-    left: 40,
+    top: moderateScale(90),
+    left: moderateScale(40),
     position: 'absolute',
   },
   colorBarText: {
     color: '#5A534A',
-    fontSize: 36,
+    fontSize: moderateScale(36),
     fontWeight: '500',
-    top: 100,
-    left: 40,
+    top: moderateScale(100),
+    left: moderateScale(40),
     position: 'absolute',
   },
   lineContainer: {
     position: 'absolute',
-    top: 150,
-    left: 40,
+    top: moderateScale(150),
+    left: moderateScale(40),
   },
   rectangleContainer: {
-    width: 384,
-    height: 432,
+    width: moderateScale(330),
+    height: verticalScale(370),
     flexShrink: 0,
-    borderRadius: 20,
-    top: 170,
+    borderRadius: moderateScale(20),
+    top: verticalScale(150),
     border: '1px solid #5A534A',
     position: 'absolute',
   },
   cameraContainer: {
-    height: 160,
-    width: 160,
-    borderRadius: 100,
+    height: moderateScale(160),
+    width: moderateScale(160),
+    borderRadius: moderateScale(100),
     overflow: 'hidden',
     borderColor: 'black',
     borderWidth: 1,
     position: 'absolute',
-    top: 300,
+    top: verticalScale(260),
   },
   camera: {
     flex: 1,
@@ -152,26 +154,27 @@ const styles = StyleSheet.create({
   },
   arrowButton: {
     position: 'absolute',
-    top: 60,
-    right: 40,
+    top: verticalScale(60),
+    right: moderateScale(40),
   },
   verticalRectanglesContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    top: 300,
+    top: verticalScale(260),
   },
   verticalRectangle: {
-    width: 50,
-    height: 200,
-    borderRadius: 20,
-    marginRight: 10,
-    left: 4,
+    width: moderateScale(45),
+    height: verticalScale(150),
+    borderRadius: moderateScale(20),
+    marginRight: moderateScale(10),
+    left: moderateScale(5),
   },
   savedButtonContainer: {
     alignItems: 'center',
     justifyContent: 'flex-start',
     position: 'absolute',
-    top: 10,
+    top: moderateScale(10),
     width: '100%',
   },
 });
+

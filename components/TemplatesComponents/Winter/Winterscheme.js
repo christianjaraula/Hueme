@@ -1,36 +1,37 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import ArrowButtonLeft from '../../SVG/NavigationIcon/ArrowButtonLeft';
 import { useNavigation } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from '../../scalingUtils'; // Import the scaling utilities
 
 export default function Autumnscheme() {
   const navigation = useNavigation();
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Winter scheme</Text>
-        <Text style={styles.colorBarText}>Color bar</Text>
-        <Svg height="2" width="194" style={styles.lineContainer}>
-          <Defs>
-            <LinearGradient
-              id="paint0_linear_237_1125"
-              x1="-0.499997"
-              y1="0.999675"
-              x2="193.5"
-              y2="1"
-              gradientUnits="userSpaceOnUse"
-            >
-              <Stop offset="0.255208" stopColor="#2A2D34" stopOpacity="0.5" />
-              <Stop offset="1" stopColor="#2A2D34" stopOpacity="0" />
-            </LinearGradient>
-          </Defs>
-          <Path
-            d="M0 1L193.5 1"
-            stroke="url(#paint0_linear_237_1125)"
-            strokeWidth="0.5"
-          />
-        </Svg>
-        {/* First Rectangle Container */}
+  
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Winter scheme</Text>
+      <Text style={styles.colorBarText}>Color bar</Text>
+      <Svg height={moderateScale(2)} width={moderateScale(194)} style={styles.lineContainer}>
+        <Defs>
+          <LinearGradient
+            id="paint0_linear_237_1125"
+            x1="-0.499997"
+            y1="0.999675"
+            x2={moderateScale(193.5)}
+            y2="1"
+            gradientUnits="userSpaceOnUse"
+          >
+            <Stop offset="0.255208" stopColor="#2A2D34" stopOpacity="0.5" />
+            <Stop offset="1" stopColor="#2A2D34" stopOpacity="0" />
+          </LinearGradient>
+        </Defs>
+        <Path
+          d={`M0 ${moderateScale(1)}L${moderateScale(193.5)} ${moderateScale(1)}`}
+          stroke="url(#paint0_linear_237_1125)"
+          strokeWidth={moderateScale(0.5)}
+        />
+      </Svg>
       <TouchableOpacity
         style={styles.rectangleContainer}
         onPress={() => navigation.navigate('DarkWinter')}
@@ -45,7 +46,6 @@ export default function Autumnscheme() {
           <View style={[styles.additionalVerticalRectangle, { backgroundColor: '#441321' }]} />
         </View>
       </TouchableOpacity>
-      {/* Second Rectangle Container */}
       <TouchableOpacity
         style={styles.rectangleContainer}
         onPress={() => navigation.navigate('DeepWinter')}
@@ -60,7 +60,6 @@ export default function Autumnscheme() {
           <View style={[styles.additionalVerticalRectangle, { backgroundColor: '#5A091E' }]} />
         </View>
       </TouchableOpacity>
-      {/* Third Rectangle Container */}
       <TouchableOpacity
         style={styles.rectangleContainer}
         onPress={() => navigation.navigate('VividWinter')}
@@ -79,7 +78,7 @@ export default function Autumnscheme() {
         style={styles.arrowButton}
         onPress={() => navigation.goBack()}
       >
-        <ArrowButtonLeft width={40} height={40} color="#5A534A" />
+        <ArrowButtonLeft width={scale(40)} height={scale(40)} color="#5A534A" />
       </TouchableOpacity>
     </View>
   );
@@ -94,61 +93,61 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#5A534A',
-    top: 90,
-    left: 40,
+    top: moderateScale(90),
+    left: moderateScale(40),
     position: 'absolute',
   },
   colorBarText: {
     color: '#5A534A',
-    fontSize: 36,
+    fontSize: moderateScale(36),
     fontWeight: '500',
-    top: 100,
-    left: 40,
+    top: moderateScale(100),
+    left: moderateScale(40),
     position: 'absolute',
   },
   lineContainer: {
     position: 'absolute',
-    top: 150,
-    left: 40,
+    top: moderateScale(150),
+    left: moderateScale(40),
   },
   rectangleContainer: {
-    width: 384,
-    height: 200,
+    width: moderateScale(300),
+    height: verticalScale(150),
     flexShrink: 0,
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
     borderColor: '#5A534A',
     borderWidth: 1,
     backgroundColor: '#EBEBEB',
-    marginBottom: 15,
-    top: 50,
+    marginBottom: verticalScale(15),
+    top: verticalScale(50),
     position: 'relative',
   },
   rectangleText: {
     color: '#5A534A',
-    fontSize: 13,
+    fontSize: moderateScale(13),
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 20,
-    right: 220,
+    marginTop: verticalScale(10),
+    right: moderateScale(155),
     position: 'absolute',
   },
   verticalRectangle: {
-    flexDirection: 'row', // Set flexDirection to 'row' for horizontal arrangement
-    justifyContent: 'center', // Center the items horizontally
-    alignItems: 'center', // Center the items vertically
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   additionalVerticalRectangle: {
-    width: 54,
-    height: 120,
+    width: moderateScale(40),
+    height: verticalScale(100),
     flexShrink: 0,
-    borderRadius: 20,
-    marginRight: 5,
-    top: 60, // Adjust the margin between additional vertical rectangles
-    left: 2,
+    borderRadius: moderateScale(20),
+    marginRight: moderateScale(5),
+    top: verticalScale(40),
+    left: moderateScale(2),
   },
   arrowButton: {
     position: 'absolute',
-    top: 60,
-    right: 40,
+    top: verticalScale(60),
+    right: moderateScale(40),
   },
 });

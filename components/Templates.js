@@ -8,6 +8,17 @@ import Spring from './TemplatesComponents/Spring/Spring';
 import Summer from './TemplatesComponents/Summer/Summer';
 import Autumn from './TemplatesComponents/Autumn/Autumn';
 import Winter from './TemplatesComponents/Winter/Winter';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+const guidelineBaseWidth = 350;
+const guidelineBaseHeight = 680;
+
+const scale = (size) => (width / guidelineBaseWidth) * size;
+const verticalScale = (size) => (height / guidelineBaseHeight) * size;
+const moderateScale = (size, factor = 0.5) => size + (scale(size) - size) * factor;
+
+export { scale, verticalScale, moderateScale };
 
 export default function Templates({ }) {
   const navigation = useNavigation();
@@ -37,22 +48,21 @@ export default function Templates({ }) {
     navigation.navigate('SkinColorBar', { cameraVisible: true });
   };
 
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleNavigateToSkinColorBar} style={styles.arrowButton}>
         <ArrowButtonLeft width={40} height={40} color="#5A534A" />
       </TouchableOpacity>
       <View>
-        <Text style={[styles.colorBarText, { fontFamily: 'Familjen Grotesk' }]}>Color Bar</Text>
+        <Text style={[styles.colorBarText]}>Color Bar</Text>
       </View>
-      <Svg height="2" width="194" style={styles.lineContainer}>
+      <Svg height={moderateScale(2)} width={moderateScale(194)} style={styles.lineContainer}>
         <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"
             x1="-0.499997"
             y1="0.999675"
-            x2="193.5"
+            x2={moderateScale(193.5)}
             y2="1"
             gradientUnits="userSpaceOnUse"
           >
@@ -61,9 +71,9 @@ export default function Templates({ }) {
           </LinearGradient>
         </Defs>
         <Path
-          d="M0 1L193.5 1"
+          d={`M0 ${moderateScale(1)}L${moderateScale(193.5)} ${moderateScale(1)}`}
           stroke="url(#paint0_linear_237_1125)"
-          strokeWidth="0.5"
+          strokeWidth={moderateScale(0.5)}
         />
       </Svg>
       <View style={styles.buttonContainer}>
@@ -85,25 +95,24 @@ const styles = StyleSheet.create({
   },
   arrowButton: {
     position: 'absolute',
-    top: 60,
-    right: 40,
+    top: moderateScale(60),
+    right: moderateScale(40),
   },
   colorBarText: {
     color: '#5A534A',
-    fontSize: 36,
+    fontSize: moderateScale(30),
     fontWeight: '500',
-    marginRight: 200,
-    top: -30,
+    marginRight: moderateScale(180),
+    top: moderateScale(10),
   },
   lineContainer: {
-    right: 70,
-    top: -25,
+    right: moderateScale(57),
+    top: moderateScale(15),
   },
   buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 140,
-    marginBottom: 20,
-    top: 20,
+    marginBottom: moderateScale(20),
+    top: moderateScale(40),
   },
 });

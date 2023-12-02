@@ -286,16 +286,15 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     marginBottom: verticalScale(5),
-    marginRight: scale(160),
+    marginRight: scale(140),
   },
   text: {
     color: '#5A534A',
     fontSize: moderateScale(25),
-    fontFamily: 'Familjen Grotesk',
     fontWeight: '600',
   },
   borderContainer: {
-    width: scale(320),
+    width: scale(310),
     height: verticalScale(246),
     borderRadius: scale(20),
     overflow: 'hidden',
@@ -331,7 +330,7 @@ const styles = StyleSheet.create({
   },
   lineContainer: {
     marginBottom: verticalScale(20),
-    right: scale(50),
+    right: scale(55),
   },
   iconContainerStyle: {
     marginLeft: scale(215),
@@ -373,12 +372,12 @@ const styles = StyleSheet.create({
   },
   arrowButton: {
     position: 'absolute',
-    marginTop: verticalScale(180),
+    marginTop: verticalScale(190),
     left: scale(120),
   },
   arrowButton2: {
     position: 'absolute',
-    marginTop: verticalScale(180),
+    marginTop: verticalScale(190),
     right: scale(120),
   },
 });

@@ -3,6 +3,7 @@ import React from 'react';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import ArrowButtonLeft from '../../SVG/NavigationIcon/ArrowButtonLeft';
 import { useNavigation } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from '../../scalingUtils'; // Import the scaling utilities
 
 
 export default function Summerscheme() {
@@ -96,61 +97,61 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#5A534A',
-    top: 90,
-    left: 40,
+    top: moderateScale(90),
+    left: moderateScale(40),
     position: 'absolute',
   },
   colorBarText: {
     color: '#5A534A',
-    fontSize: 36,
+    fontSize: moderateScale(36),
     fontWeight: '500',
-    top: 100,
-    left: 40,
+    top: moderateScale(100),
+    left: moderateScale(40),
     position: 'absolute',
   },
   lineContainer: {
     position: 'absolute',
-    top: 150,
-    left: 40,
+    top: moderateScale(150),
+    left: moderateScale(40),
   },
   rectangleContainer: {
-    width: 384,
-    height: 200,
+    width: moderateScale(300),
+    height: verticalScale(150),
     flexShrink: 0,
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
     borderColor: '#5A534A',
     borderWidth: 1,
     backgroundColor: '#EBEBEB',
-    marginBottom: 15,
-    top: 50,
+    marginBottom: verticalScale(15),
+    top: verticalScale(50),
     position: 'relative',
   },
   rectangleText: {
     color: '#5A534A',
-    fontSize: 13,
+    fontSize: moderateScale(13),
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 20,
-    right: 220,
+    marginTop: verticalScale(10),
+    right: moderateScale(145),
     position: 'absolute',
   },
   verticalRectangle: {
-    flexDirection: 'row', // Set flexDirection to 'row' for horizontal arrangement
-    justifyContent: 'center', // Center the items horizontally
-    alignItems: 'center', // Center the items vertically
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   additionalVerticalRectangle: {
-    width: 54,
-    height: 120,
+    width: moderateScale(40),
+    height: verticalScale(100),
     flexShrink: 0,
-    borderRadius: 20,
-    marginRight: 5,
-    top: 60, // Adjust the margin between additional vertical rectangles
-    left: 2,
+    borderRadius: moderateScale(20),
+    marginRight: moderateScale(5),
+    top: verticalScale(40),
+    left: moderateScale(2),
   },
   arrowButton: {
     position: 'absolute',
-    top: 60,
-    right: 40,
+    top: verticalScale(60),
+    right: moderateScale(40),
   },
 });

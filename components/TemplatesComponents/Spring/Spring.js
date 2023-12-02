@@ -1,5 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
+import { scale, verticalScale, moderateScale } from '../../scalingUtils'
+
 
 const Spring = ({ onPress, navigation }) => {
   const handlePress = () => {
@@ -22,34 +24,35 @@ const Spring = ({ onPress, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 384,
-    height: 143,
-    borderRadius: 20,
+    width: moderateScale(320),
+    height: verticalScale(110),
+    borderRadius: moderateScale(20),
     borderWidth: 1,
     borderColor: '#5A534A',
     backgroundColor: '#EBEBEB',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginBottom: 20,
+    paddingHorizontal: moderateScale(20),
+    marginBottom: verticalScale(20),
   },
   text: {
     color: 'rgba(74, 66, 56, 0.75)',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 15,
+    fontSize: moderateScale(15),
     fontStyle: 'normal',
     fontWeight: '500',
-    top: -55,
+    top: verticalScale(-40),
   },
   image: {
-    width: 345,
-    height: 100,
-    top: 10,
-    right: 99,
+    width: moderateScale(300),
+    height: verticalScale(70),
+    top: verticalScale(10),
+    right: moderateScale(107),
     flexShrink: 0,
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
   },
 });
+
 
 export default Spring;

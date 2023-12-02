@@ -410,9 +410,9 @@ const styles = StyleSheet.create({
   arrowButton2: {
     width: moderateScale(40), // Using moderateScale for width
     height: moderateScale(40), // Using moderateScale for height
-    padding: moderateScale(10), // Using moderateScale for padding
-    marginLeft: moderateScale(270), // Using moderateScale for margin
-    top: verticalScale(-40), // Using verticalScale for margin
+    padding: moderateScale(10), // Using moderateScale for padding // Using moderateScale for margin
+    top: verticalScale(-43), 
+    left: verticalScale(220), 
   },
 });
 

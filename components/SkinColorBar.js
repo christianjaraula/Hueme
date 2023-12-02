@@ -24,6 +24,10 @@ import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft';
 import ArrowButtonRight from './SVG/NavigationIcon/ArrowButtonRight';
 import CameraDisplay from './SkinColorBarComponents/CameraDisplay';
 import { useRoute } from '@react-navigation/native';
+import { Dimensions } from 'react-native';
+import { scale, verticalScale, moderateScale } from './scalingUtils'; // Import the scaling utilities
+
+const { width, height } = Dimensions.get('window');
 
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -40,6 +44,7 @@ const SkinColorBar = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
+
   useEffect(() => {
     async function loadFont() {
       await Font.loadAsync({
@@ -91,9 +96,10 @@ const SkinColorBar = () => {
       return { backgroundColor: '#F0EDE7' }; // Default color when no button is active
     }
   };
+
   const handleIconClick = () => {
     setActive1(!active1);
-    setActive2(false); // Deactivate icon2
+    setActive2(false);
     setActive3(false);
     setActive4(false);
     setActive5(false);
@@ -104,7 +110,7 @@ const SkinColorBar = () => {
 
   const handleIconClick2 = () => {
     setActive2(!active2);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive3(false);
     setActive4(false);
     setActive5(false);
@@ -115,7 +121,7 @@ const SkinColorBar = () => {
 
   const handleIconClick3 = () => {
     setActive3(!active3);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive2(false);
     setActive4(false);
     setActive5(false);
@@ -126,7 +132,7 @@ const SkinColorBar = () => {
 
   const handleIconClick4 = () => {
     setActive4(!active4);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive2(false);
     setActive3(false);
     setActive5(false);
@@ -134,9 +140,10 @@ const SkinColorBar = () => {
     setActive7(false);
     setActive8(false);
   };
+
   const handleIconClick5 = () => {
     setActive5(!active5);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive2(false);
     setActive3(false);
     setActive4(false);
@@ -147,7 +154,7 @@ const SkinColorBar = () => {
 
   const handleIconClick6 = () => {
     setActive6(!active6);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive2(false);
     setActive3(false);
     setActive4(false);
@@ -158,7 +165,7 @@ const SkinColorBar = () => {
 
   const handleIconClick7 = () => {
     setActive7(!active7);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive2(false);
     setActive3(false);
     setActive4(false);
@@ -169,7 +176,7 @@ const SkinColorBar = () => {
 
   const handleIconClick8 = () => {
     setActive8(!active8);
-    setActive1(false); // Deactivate icon1
+    setActive1(false);
     setActive2(false);
     setActive3(false);
     setActive4(false);
@@ -178,93 +185,35 @@ const SkinColorBar = () => {
     setActive7(false);
   };
 
-
-
-
-  const renderSvg = () => {
-    if (active1) {
-      return <ColorBar1Active />;
-    } else {
-      return <ColorBar1 />;
-    }
-  };
-  const renderSvg2 = () => {
-    if (active2) {
-      return <ColorBar2Active/>;
-    } else {
-      return <ColorBar2 />;
-    }
-  };
-  const renderSvg3 = () => {
-    if (active3) {
-      return <ColorBar3Active/>;
-    } else {
-      return <ColorBar3 />;
-    }
-  };
-
-  const renderSvg4 = () => {
-    if (active4) {
-      return <ColorBar4Active/>;
-    } else {
-      return <ColorBar4 />;
-    }
-  };
-
-  const renderSvg5 = () => {
-    if (active5) {
-      return <ColorBar5Active/>;
-    } else {
-      return <ColorBar5 />;
-    }
-  };
-
-  const renderSvg6 = () => {
-    if (active6) {
-      return <ColorBar6Active/>;
-    } else {
-      return <ColorBar6 />;
-    }
-  };
-
-  const renderSvg7 = () => {
-    if (active7) {
-      return <ColorBar7Active/>;
-    } else {
-      return <ColorBar7 />;
-    }
-  };
-  
-  const renderSvg8 = () => {
-    if (active8) {
-      return <ColorBar8Active/>;
-    } else {
-      return <ColorBar8 />;
-    }
-  };
+  const renderSvg = () => (active1 ? <ColorBar1Active /> : <ColorBar1 />);
+  const renderSvg2 = () => (active2 ? <ColorBar2Active /> : <ColorBar2 />);
+  const renderSvg3 = () => (active3 ? <ColorBar3Active /> : <ColorBar3 />);
+  const renderSvg4 = () => (active4 ? <ColorBar4Active /> : <ColorBar4 />);
+  const renderSvg5 = () => (active5 ? <ColorBar5Active /> : <ColorBar5 />);
+  const renderSvg6 = () => (active6 ? <ColorBar6Active /> : <ColorBar6 />);
+  const renderSvg7 = () => (active7 ? <ColorBar7Active /> : <ColorBar7 />);
+  const renderSvg8 = () => (active8 ? <ColorBar8Active /> : <ColorBar8 />);
 
   const handleNavigateToTemplates = () => {
     setCameraVisible(false);
     navigation.navigate('Templates');
   };
-  
-  
-  
+
   return fontLoaded && cameraPermission === 'granted' ? (
     <View style={styles.container}>
-      <View style={styles.iconContainer}>
+      {/* <View style={styles.iconContainer}>
         <Image source={require('../assets/HueIcon.png')} style={styles.icon} />
-      </View>
+      </View> */}
       <View style={styles.textContainer}>
         <Text style={styles.text}>Skin Color Bar</Text>
       </View>
-      <Svg height="2" width="194" style={styles.lineContainer}>
+      <Svg height={verticalScale(2)} width={scale(194)} style={styles.lineContainer}>
         <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"
             x1="-0.499997"
             y1="0.999675"
-            x2="193.5"
+            x2={scale(193.5)}
             y2="1"
             gradientUnits="userSpaceOnUse"
           >
@@ -272,18 +221,14 @@ const SkinColorBar = () => {
             <Stop offset="1" stopColor="#2A2D34" stopOpacity="0" />
           </LinearGradient>
         </Defs>
-        <Path
-          d="M0 1L193.5 1"
-          stroke="url(#paint0_linear_237_1125)"
-          strokeWidth="0.5"
-        />
+        <Path d={`M0 1L${scale(193.5)} 1`} stroke="url(#paint0_linear_237_1125)" strokeWidth={scale(0.5)} />
       </Svg>
       <View style={styles.borderContainer}>
         <View style={[styles.border, renderBorderColor()]} />
         {cameraVisible && (
-        <View style={styles.cameraContainer}>
-        <CameraDisplay />
-        </View>
+          <View style={styles.cameraContainer}>
+            <CameraDisplay />
+          </View>
         )}
       </View>
       <Text style={styles.skinColorText}>Skin Color</Text>
@@ -292,42 +237,36 @@ const SkinColorBar = () => {
           {renderSvg()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick2} style={styles.iconContainerStyle2}>
-          {renderSvg2()} 
+          {renderSvg2()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick3} style={styles.iconContainerStyle3}>
-          {renderSvg3()} 
+          {renderSvg3()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick4} style={styles.iconContainerStyle4}>
-          {renderSvg4()} 
+          {renderSvg4()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick5} style={styles.iconContainerStyle5}>
-          {renderSvg5()} 
+          {renderSvg5()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick6} style={styles.iconContainerStyle6}>
-          {renderSvg6()} 
+          {renderSvg6()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick7} style={styles.iconContainerStyle7}>
-          {renderSvg7()} 
+          {renderSvg7()}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleIconClick8} style={styles.iconContainerStyle8}>
-          {renderSvg8()} 
+          {renderSvg8()}
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.arrowButton}
-          onPress={() => navigation.goBack()}
-        >
-          <ArrowButtonLeft width={40} height={40} color='#5A534A' />
+        <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
+          <ArrowButtonLeft width={scale(40)} height={scale(40)} color="#5A534A" />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleNavigateToTemplates}
-          style={styles.arrowButton2} 
-        >
-          <ArrowButtonRight width={40} height={40} color="#5A534A" />
+        <TouchableOpacity onPress={handleNavigateToTemplates} style={styles.arrowButton2}>
+          <ArrowButtonRight width={scale(40)} height={scale(40)} color="#5A534A" />
         </TouchableOpacity>
       </View>
     </View>
   ) : null;
-};  
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -337,36 +276,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconContainer: {
-    marginBottom: 20,
-    marginTop: -70,
+    marginBottom: verticalScale(1),
+    top: verticalScale(-10),
   },
   icon: {
-    width: 121,
-    height: 89,
+    width: scale(100),
+    height: verticalScale(90),
   },
   textContainer: {
     alignItems: 'center',
-    marginBottom: 5,
-    marginRight: 160,
+    marginBottom: verticalScale(5),
+    marginRight: scale(160),
   },
   text: {
     color: '#5A534A',
-    fontSize: 36,
+    fontSize: moderateScale(25),
     fontFamily: 'Familjen Grotesk',
     fontWeight: '600',
   },
   borderContainer: {
-    width: 380,
-    height: 246,
-    borderRadius: 20,
+    width: scale(320),
+    height: verticalScale(246),
+    borderRadius: scale(20),
     overflow: 'hidden',
   },
   border: {
     flex: 1,
     backgroundColor: 'white',
-    borderWidth: 1,
+    borderWidth: scale(1),
     borderColor: '#5A534A',
-    borderRadius: 20,
+    borderRadius: scale(20),
   },
   cameraContainer: {
     position: 'absolute',
@@ -378,71 +317,71 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   camera: {
-    width: 150,
-    height: 150,
-    borderRadius: 75, // Make it a perfect circle by setting borderRadius to half of the width and height
-    overflow: 'hidden', // Add this line to ensure the circular shape is maintained
+    width: scale(150),
+    height: verticalScale(150),
+    borderRadius: scale(75),
+    overflow: 'hidden',
   },
   skinColorText: {
     color: 'rgba(74, 66, 56, 0.75)',
-    fontFamily: 'Familjen Grotesk',
-    fontSize: 15,
+    fontSize: moderateScale(10),
     fontWeight: '500',
-    marginRight: 300,
-    marginTop: 20,
+    right: scale(130),
+    marginTop: verticalScale(20),
   },
   lineContainer: {
-    marginBottom: 20,
-    marginRight: 170,
+    marginBottom: verticalScale(20),
+    right: scale(50),
   },
   iconContainerStyle: {
-    marginLeft: 215,
-    right: 125,
-    marginTop: 10,
+    marginLeft: scale(215),
+    right: scale(125),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle2: {
-    right: 120,
-    marginTop: 10,
+    right: scale(120),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle3: {
-    right: 115,
-    marginTop: 10,
+    right: scale(115),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle4: {
-    right: 110,
-    marginTop: 10,
+    right: scale(110),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle5: {
-    right: 105,
-    marginTop: 10,
+    right: scale(105),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle6: {
-    right: 100,
-    marginTop: 10,
+    right: scale(100),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle7: {
-    right: 95,
-    marginTop: 10,
+    right: scale(95),
+    marginTop: verticalScale(10),
   },
   iconContainerStyle8: {
-    right: 90,
-    marginTop: 10,
+    right: scale(90),
+    marginTop: verticalScale(10),
   },
   buttonContainer: {
-    flexDirection: 'row', // Arrange buttons horizontally
-    marginTop: 10,
-    marginBottom: 20,
+    flexDirection: 'row',
+    marginTop: verticalScale(1),
+    marginBottom: verticalScale(20),
   },
   arrowButton: {
     position: 'absolute',
-    marginTop: 240,
-    left: 105,
+    marginTop: verticalScale(180),
+    left: scale(120),
   },
   arrowButton2: {
     position: 'absolute',
-    marginTop: 240,
-    right: 105,
-  }
+    marginTop: verticalScale(180),
+    right: scale(120),
+  },
 });
 
 export default SkinColorBar;
+

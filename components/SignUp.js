@@ -14,6 +14,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useNavigation } from '@react-navigation/native';
+import { moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
 
 import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft'; // Import your icon component
 import ArrowButtonRight from './SVG/NavigationIcon/ArrowButtonRight'; // Import your icon component
@@ -262,7 +263,7 @@ const SignUp = () => {
           />
         </View>
 
-        <TermsOfUse handleTermsOfUseClick={handleTermsOfUseClick} />
+        {/* <TermsOfUse handleTermsOfUseClick={handleTermsOfUseClick} /> */}
 
         <View style={styles.arrowButton}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -288,21 +289,20 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     width: '99%',
-    height: 35,
-    borderRadius: 6,
+    height: verticalScale(30), // Using verticalScale for height
+    borderRadius: moderateScale(6), // Using moderateScale for border radius
     borderWidth: 1,
     borderColor: '#5A534ABF',
   },
   label: {
-    marginBottom: 5,
+    marginBottom: verticalScale(1), // Using verticalScale for margin
     fontWeight: 'bold',
-    fontSize: 10,
+    fontSize: moderateScale(10), // Using moderateScale for font size
   },
-
   profileImageContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 57,
+    width: moderateScale(80), // Using moderateScale for width
+    height: moderateScale(80), // Using moderateScale for height
+    borderRadius: moderateScale(57), // Using moderateScale for border radius
     overflow: 'hidden',
   },
   profileImage: {
@@ -312,44 +312,44 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: 'center',
-    marginBottom: -350,
-    marginTop: 20,
+    marginBottom: verticalScale(-350), // Using verticalScale for margin
+    marginTop: verticalScale(25), // Using verticalScale for margin
   },
   icon: {
-    width: 121,
-    height: 89,
+    width: moderateScale(121), // Using moderateScale for width
+    height: moderateScale(89), // Using moderateScale for height
   },
   createAccountText: {
     color: '#5A534A',
-    fontSize: 26,
+    fontSize: moderateScale(26), // Using moderateScale for font size
     fontWeight: '500',
-    width: 301,
-    height: 35,
+    width: moderateScale(301), // Using moderateScale for width
+    height: verticalScale(35), // Using verticalScale for height
     alignItems: 'center',
     textAlign: 'center',
-    marginLeft: 35,
-    marginTop: 350,
+    marginLeft: moderateScale(10), // Using moderateScale for margin
+    marginTop: verticalScale(340), // Using verticalScale for margin
   },
   formContainer: {
-    marginTop: 20,
+    marginTop: verticalScale(20), // Using verticalScale for margin
   },
   nameContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: -10,
+    marginTop: verticalScale(-10), // Using verticalScale for margin
   },
   nameBox: {
     flex: 1,
-    paddingRight: 1,
+    paddingRight: moderateScale(1), // Using moderateScale for padding
   },
   genderBox: {
     width: '99%',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: verticalScale(10), // Using verticalScale for margin
+    marginBottom: verticalScale(10), // Using verticalScale for margin
   },
   pickerContainer: {
     width: '100%',
-    borderRadius: 6,
+    borderRadius: moderateScale(6), // Using moderateScale for border radius
     borderWidth: 1,
     borderColor: '#5A534ABF',
     justifyContent: 'center',
@@ -360,59 +360,60 @@ const styles = StyleSheet.create({
   },
   dateBox: {
     flex: 1,
-    paddingRight: 1,
+    paddingRight: moderateScale(1), // Using moderateScale for padding
   },
   emailBox: {
-    marginTop: 10,
+    marginTop: verticalScale(10), // Using verticalScale for margin
   },
   passwordBox: {
-    marginTop: 10,
+    marginTop: verticalScale(10), // Using verticalScale for margin
   },
   confirmPasswordBox: {
-    marginTop: 10,
+    marginTop: verticalScale(10), // Using verticalScale for margin
   },
   usernameBox: {
-    marginTop: -15,
+    marginTop: verticalScale(-15), // Using verticalScale for margin
   },
   inputLine: {
-    marginTop: -5,
+    marginTop: verticalScale(-5), // Using verticalScale for margin
     width: '50%',
     alignSelf: 'center',
     height: 1,
     backgroundColor: '#5A534ABF',
-    marginVertical: 5,
+    marginVertical: verticalScale(5), // Using verticalScale for margin
   },
   monthPicker: {
     width: '100%',
-    maxHeight: 100,
+    maxHeight: verticalScale(100), // Using verticalScale for max height
     borderColor: '#5A534ABF',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: moderateScale(6), // Using moderateScale for border radius
   },
   monthPickerContent: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
   monthItem: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: verticalScale(8), // Using verticalScale for padding
+    paddingHorizontal: moderateScale(16), // Using moderateScale for padding
     borderBottomWidth: 1,
     borderBottomColor: '#5A534ABF',
   },
-  arrowButton: { 
-    marginTop: 20,
-    padding: 10, // Adjust the padding as needed to control the clickable area
-    margin: 10,
-    width: 40, 
-    height: 40, 
+  arrowButton: {
+    marginTop: verticalScale(10), // Using verticalScale for margin
+    padding: moderateScale(10), // Using moderateScale for padding
+    margin: moderateScale(10), // Using moderateScale for margin
+    width: moderateScale(40), // Using moderateScale for width
+    height: moderateScale(40),
+    top: verticalScale(3), // Using moderateScale for height
   },
   arrowButton2: {
-    width: 40, 
-    height: 40, 
-    padding: 10, // Adjust the padding as needed to control the clickable area
-    marginLeft: 310,
-    top: -40,
-  }
+    width: moderateScale(40), // Using moderateScale for width
+    height: moderateScale(40), // Using moderateScale for height
+    padding: moderateScale(10), // Using moderateScale for padding
+    marginLeft: moderateScale(270), // Using moderateScale for margin
+    top: verticalScale(-40), // Using verticalScale for margin
+  },
 });
 
 export default SignUp;

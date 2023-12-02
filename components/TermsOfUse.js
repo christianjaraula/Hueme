@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { moderateScale, verticalScale } from './scalingUtils'; // Adjust the import path based on your project structure
 
 const TermsOfUse = ({ handleTermsOfUseClick }) => {
   return (
@@ -14,19 +15,18 @@ const TermsOfUse = ({ handleTermsOfUseClick }) => {
 
 const styles = StyleSheet.create({
   terms: {
-    marginTop: 10,
+    marginTop: verticalScale(10),
   },
   termsText: {
-    fontSize: 8,
-    left: 187,
+    fontSize: moderateScale(8),
+    left: moderateScale(120),
   },
   termsLink: {
-    fontSize: 8,
-    left: 314,
-    top: -11,
+    fontSize: moderateScale(8),
+    left: moderateScale(235),
+    top: moderateScale(-11),
     color: '#7DA6A1',
   },
 });
 
 export default TermsOfUse;
-

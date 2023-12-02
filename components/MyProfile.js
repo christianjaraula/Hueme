@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
 import Svg, { Path, Defs, Stop, RadialGradient } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
+import { moderateScale, verticalScale } from './scalingUtils';
 
 // Import your custom icon components
 import UserIcon from './SVG/MyProfileIcons/UserIcon';
@@ -15,9 +16,7 @@ import FeedbackIcon from './SVG/MyProfileIcons/FeedbackIcon';
 export default function MyProfile() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-  const navigation = useNavigation(); // Get the navigation object
-  
-  
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function loadFont() {
@@ -48,20 +47,19 @@ export default function MyProfile() {
   };
 
   const handleTermsOfUsePress = () => {
-    
+    // Implement the action when the "Terms of Use" button is pressed
   };
 
   const handleAboutUSPress = () => {
-    
+    // Implement the action when the "About Us" button is pressed
   };
 
   const handleFeedbackPress = () => {
-    
+    // Implement the action when the "Help and Feedback" button is pressed
   };
 
   const handleLogoutPress = () => {
     // Implement your logout logic here
-
     // Navigate back to the Home screen
     navigation.navigate('Home');
   };
@@ -70,13 +68,10 @@ export default function MyProfile() {
     <View style={styles.container}>
       {fontLoaded && (
         <View>
-          <Image
-            source={require('../assets/HueIcon.png')}
-            style={styles.icon}
-          />
+          <Image source={require('../assets/HueIcon.png')} style={styles.icon} />
           <View>
             <Text style={styles.profileText}>My Profile</Text>
-            <Svg height="2" width="194" style={styles.lineContainer}>
+            <Svg height={verticalScale(2)} width={moderateScale(194)} style={styles.lineContainer}>
               <Defs>
                 <RadialGradient
                   id="paint0_radial_222_17"
@@ -112,48 +107,48 @@ export default function MyProfile() {
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleUserDetailsPress}>
-                <View  style={styles.buttonIcon}></View>
-                  <UserIcon width={23} height={26} color="#F0EDE7"  />
+                  <View style={styles.buttonIcon}></View>
+                  <UserIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>User Details</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleSecurityAndPrivacyPress}>
-                <View  style={styles.buttonIcon}></View>
-                  <SecurityIcon width={23} height={26} color="#F0EDE7" />
+                  <View style={styles.buttonIcon}></View>
+                  <SecurityIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Security and Privacy</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleSavedPalettesPress}>
-                <View  style={styles.buttonIcon}></View>
-                  <SavedPalettesIcon width={23} height={26} color="#F0EDE7" />
+                  <View style={styles.buttonIcon}></View>
+                  <SavedPalettesIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Saved Palettes</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleTermsOfUsePress}>
-                <View  style={styles.buttonIcon}></View>
-                  <TermsOfUseIcon width={23} height={26} color="#F0EDE7" />
+                  <View style={styles.buttonIcon}></View>
+                  <TermsOfUseIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Terms of Use</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleAboutUSPress}>
-                <View  style={styles.buttonIcon}></View>
-                  <AboutUsIcon width={23} height={26} color="#F0EDE7" />
+                  <View style={styles.buttonIcon}></View>
+                  <AboutUsIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>About Us</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleFeedbackPress}>
-                <View  style={styles.buttonIcon}></View>
-                  <FeedbackIcon width={23} height={26} color="#F0EDE7" />
+                  <View style={styles.buttonIcon}></View>
+                  <FeedbackIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Help and Feedback</Text>
                 </TouchableOpacity>
               </View>
@@ -177,38 +172,38 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0EDE7',
   },
   profileText: {
-    width: 301,
-    height: 50,
+    width: moderateScale(301),
+    height: verticalScale(50),
     color: '#5A534A',
     textAlign: 'center',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 36,
+    fontSize: moderateScale(36),
     fontWeight: '500',
-    marginTop: 150,
+    marginTop: verticalScale(100),
     alignSelf: 'center',
   },
   icon: {
-    width: 45,
-    height: 40,
+    width: moderateScale(45),
+    height: moderateScale(40),
     flexShrink: 0,
     position: 'absolute',
-    top: 60,
-    left: 340,
+    top: verticalScale(60),
+    left: moderateScale(300),
   },
   lineContainer: {
     alignSelf: 'center',
-    marginTop: -5,
+    marginTop: -verticalScale(5),
   },
   profileContainer: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: verticalScale(20),
   },
   profileImageContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 57,
+    width: moderateScale(80),
+    height: moderateScale(80),
+    borderRadius: moderateScale(57),
     overflow: 'hidden',
   },
   profileImage: {
@@ -217,68 +212,66 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   nicknameText: {
-    width: 301,
-    height: 40,
+    width: moderateScale(301),
+    height: verticalScale(40),
     color: '#5A534A',
     textAlign: 'center',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 25,
+    fontSize: moderateScale(25),
     fontWeight: '600',
-    marginTop: 10,
+    marginTop: verticalScale(10),
   },
   emailText: {
     color: 'rgba(74, 66, 56, 0.50)',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 13,
+    fontSize: moderateScale(13),
     fontStyle: 'normal',
     fontWeight: '500',
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: verticalScale(20),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   button: {
-    width: 325,
-    height: 40,
-    borderRadius: 10,
+    width: moderateScale(325),
+    height: verticalScale(40),
+    borderRadius: moderateScale(10),
     backgroundColor: '#5A534A',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: -5
+    marginTop: -verticalScale(10),
   },
   iconText: {
     color: '#F0EDE7',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '500',
-    lineHeight: 21,
+    lineHeight: moderateScale(21),
     position: 'absolute',
   },
   buttonIcon: {
-    width: 23,
-    height: 26,
+    width: moderateScale(23),
+    height: moderateScale(26),
     color: '#F0EDE7',
-    marginRight: -250, // Adjust this value to move the icon to the right
+    marginRight: -moderateScale(250),
   },
   logoutButton: {
-    width: 100,
-    height: 40,
-    borderRadius: 10,
+    width: moderateScale(100),
+    height: verticalScale(40),
+    borderRadius: moderateScale(10),
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 1,
-    marginTop: 40,
+    padding: moderateScale(1),
   },
   logoutText: {
     color: '#5A534A',
     fontFamily: 'Familjen Grotesk',
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontStyle: 'normal',
     fontWeight: '500',
-    marginTop: 10,
+    bottom: verticalScale(10), // Adjusted this value
   },
 });
-

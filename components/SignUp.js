@@ -14,7 +14,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useNavigation } from '@react-navigation/native';
-import { moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
+import { scale, moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
 
 import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft'; // Import your icon component
 import ArrowButtonRight from './SVG/NavigationIcon/ArrowButtonRight'; // Import your icon component
@@ -264,18 +264,12 @@ const SignUp = () => {
         </View>
 
         {/* <TermsOfUse handleTermsOfUseClick={handleTermsOfUseClick} /> */}
-
-        <View style={styles.arrowButton}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
             <ArrowButtonLeft width={40} height={40} color="#5A534A" />
           </TouchableOpacity>
-        </View>
-
-        <View style={styles.arrowButton2}>
-          <TouchableOpacity onPress={handleNavigateToSkinColorBar}>
+          <TouchableOpacity style={styles.arrowButton2} onPress={handleNavigateToSkinColorBar}>
             <ArrowButtonRight width={40} height={40} color="#5A534A" />
           </TouchableOpacity>
-        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -322,12 +316,8 @@ const styles = StyleSheet.create({
   createAccountText: {
     color: '#5A534A',
     fontSize: moderateScale(26), // Using moderateScale for font size
-    fontWeight: '500',
-    width: moderateScale(301), // Using moderateScale for width
-    height: verticalScale(35), // Using verticalScale for height
     alignItems: 'center',
     textAlign: 'center',
-    marginLeft: moderateScale(10), // Using moderateScale for margin
     marginTop: verticalScale(340), // Using verticalScale for margin
   },
   formContainer: {
@@ -370,6 +360,7 @@ const styles = StyleSheet.create({
   },
   confirmPasswordBox: {
     marginTop: verticalScale(10), // Using verticalScale for margin
+    marginBottom: verticalScale(10), // Using verticalScale for margin
   },
   usernameBox: {
     marginTop: verticalScale(-15), // Using verticalScale for margin
@@ -400,20 +391,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#5A534ABF',
   },
   arrowButton: {
-    marginTop: verticalScale(10), // Using verticalScale for margin
-    padding: moderateScale(10), // Using moderateScale for padding
-    margin: moderateScale(10), // Using moderateScale for margin
-    width: moderateScale(40), // Using moderateScale for width
-    height: moderateScale(40),
-    top: verticalScale(3), // Using moderateScale for height
+    position: 'absolute',
+    marginTop: verticalScale(350),
+    left: scale(20),
   },
   arrowButton2: {
-    width: moderateScale(40), // Using moderateScale for width
-    height: moderateScale(40), // Using moderateScale for height
-    padding: moderateScale(10), // Using moderateScale for padding // Using moderateScale for margin
-    top: verticalScale(-43), 
-    left: verticalScale(220), 
+    position: 'absolute',
+    top: verticalScale(350),
+    right: scale(20),
   },
+
 });
 
 export default SignUp;

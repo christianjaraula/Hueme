@@ -373,12 +373,12 @@ const styles = StyleSheet.create({
   arrowButton: {
     position: 'absolute',
     marginTop: verticalScale(190),
-    left: scale(120),
+    left: scale(110),
   },
   arrowButton2: {
     position: 'absolute',
     marginTop: verticalScale(190),
-    right: scale(120),
+    right: scale(110),
   },
 });
 

@@ -4,10 +4,10 @@ import ArrowButtonLeft from './SVG/NavigationIcon/ArrowButtonLeft';
 import { useNavigation } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
-import Spring from './TemplatesComponents/Spring';
-import Summer from './TemplatesComponents/Summer';
-import Autumn from './TemplatesComponents/Autumn';
-import Winter from './TemplatesComponents/Winter';
+import Spring from './TemplatesComponents/Spring/Spring';
+import Summer from './TemplatesComponents/Summer/Summer';
+import Autumn from './TemplatesComponents/Autumn/Autumn';
+import Winter from './TemplatesComponents/Winter/Winter';
 
 export default function Templates({ }) {
   const navigation = useNavigation();
@@ -36,6 +36,7 @@ export default function Templates({ }) {
   const handleNavigateToSkinColorBar = () => {
     navigation.navigate('SkinColorBar', { cameraVisible: true });
   };
+
 
   return (
     <View style={styles.container}>
@@ -66,10 +67,10 @@ export default function Templates({ }) {
         />
       </Svg>
       <View style={styles.buttonContainer}>
-        <Spring />
-        <Summer />
-        <Autumn />
-        <Winter />
+        <Spring navigation={navigation} />
+        <Summer navigation={navigation} />
+        <Autumn navigation={navigation} />
+        <Winter navigation={navigation} />
       </View>
     </View>
   );

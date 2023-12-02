@@ -1,12 +1,20 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 
-const Spring = ({ onPress }) => {
+const Winter = ({ onPress, navigation }) => {
+  const handlePress = () => {
+    if (onPress) {
+      onPress();
+    } else if (navigation) {
+      navigation.navigate('Winterscheme'); 
+    }
+  };
+
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
-        <Text style={styles.text}>Spring Scheme</Text>
-        <Image source={require('../../components/TemplatesComponents/spring.png')} style={styles.image} />
+        <Text style={styles.text}>Winter Scheme</Text>
+        <Image source={require('../../TemplatesComponents/Winter/winter.png')} style={styles.image} />
       </View>
     </TouchableOpacity>
   );
@@ -38,10 +46,10 @@ const styles = StyleSheet.create({
     width: 345, // Set the width of the image as needed
     height: 100, // Set the height of the image as needed 
     top: 10,
-    right: 99,
+    right: 100,
     flexShrink: 0,
     borderRadius: 20,
   },
 });
 
-export default Spring;
+export default Winter;

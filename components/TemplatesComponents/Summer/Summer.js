@@ -1,12 +1,20 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 
-const Autumn = ({ onPress }) => {
+const Summer = ({ onPress, navigation }) => {
+  const handlePress = () => {
+    if (onPress) {
+      onPress();
+    } else if (navigation) {
+      navigation.navigate('Summerscheme'); 
+    }
+  };
+
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
-        <Text style={styles.text}>Autumn Scheme</Text>
-        <Image source={require('../../components/TemplatesComponents/autumn.png')} style={styles.image} />
+        <Text style={styles.text}>Summer Scheme</Text>
+        <Image source={require('../../TemplatesComponents/Summer/summer.png')} style={styles.image} />
       </View>
     </TouchableOpacity>
   );
@@ -35,13 +43,13 @@ const styles = StyleSheet.create({
     top: -55,
   },
   image: {
-    width: 345, 
-    height: 100, 
+    width: 345,
+    height: 100,
     top: 10,
-    right: 109,
+    right: 112,
     flexShrink: 0,
     borderRadius: 20,
   },
 });
 
-export default Autumn;
+export default Summer;

@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 20,
     marginRight: 10,
-    left: 3,
+    left: 4,
   },
   savedButtonContainer: {
     alignItems: 'center',

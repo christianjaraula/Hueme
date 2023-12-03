@@ -123,7 +123,6 @@ const SignUp = () => {
       !lastName ||
       !selectedMonth ||
       !selectedYear ||
-      selectedGender === '' ||
       !day ||
       !email ||
       !password ||
@@ -145,7 +144,6 @@ const SignUp = () => {
         lastName: lastName,
         selectedMonth: selectedMonth,
         selectedYear: selectedYear,
-        selectedGender: selectedGender,
         day: day,
         email: email,
         password: password,

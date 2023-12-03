@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Platform,
   ScrollView,
+  Alert
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
@@ -101,8 +102,46 @@ const SignUp = () => {
   };
 
   const handleNavigateToSkinColorBar = () => {
+    // Debug logging to check the values of the fields
+    console.log('firstName:', firstName);
+    console.log('lastName:', lastName);
+    console.log('selectedMonth:', selectedMonth);
+    console.log('selectedYear:', selectedYear);
+    console.log('selectedGender:', selectedGender);
+    console.log('day:', day);
+    console.log('email:', email);
+    console.log('password:', password);
+    console.log('confirmPassword:', confirmPassword);
+    console.log('profileImage:', profileImage);
+    console.log('username:', username);
+  
+    // Perform validation checks for required fields
+    if (
+      !firstName ||
+      !lastName ||
+      !selectedMonth ||
+      !selectedYear ||
+      selectedGender === '' || // Updated this line to check for an empty string
+      !day ||
+      !email ||
+      !password ||
+      
+      !confirmPassword ||
+      !profileImage ||
+      !username
+    ) {
+      Alert.alert('Please fill in all the required fields');
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert('Passwords do not match');
+      return;
+    }
+  
+    // If all required fields are filled, navigate to the next screen
     navigation.navigate('SkinColorBar');
   };
+  
 
   
 

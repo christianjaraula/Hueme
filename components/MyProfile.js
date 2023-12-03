@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, Split } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
 import Svg, { Path, Defs, Stop, RadialGradient } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute} from '@react-navigation/native';
 import { moderateScale, verticalScale } from './scalingUtils';
 
 // Import your custom icon components
@@ -13,10 +13,20 @@ import TermsOfUseIcon from './SVG/MyProfileIcons/TermsOfUseIcon';
 import AboutUsIcon from './SVG/MyProfileIcons/AboutUsIcon';
 import FeedbackIcon from './SVG/MyProfileIcons/FeedbackIcon';
 
-export default function MyProfile() {
+import { db } from "../services/firebase";
+import { getDocs, query, collection, where, doc } from 'firebase/firestore';
+
+export default function MyProfile({route}) {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const navigation = useNavigation();
+  const [userData, setUserData] = useState(null);
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
+  const [year, setYear] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     async function loadFont() {
@@ -26,7 +36,18 @@ export default function MyProfile() {
       setFontLoaded(true);
     }
     loadFont();
-  }, []);
+
+    if (route.params && route.params.userData) {
+      setUserData(route.params.userData);
+      setProfileImage(route.params.userData.profileImage);
+      setMonth(route.params.userData.month || '');
+      setDay(route.params.userData.day || '');
+      setYear(route.params.userData.year || '');
+      setEmail(route.params.userData.email || '');
+    }
+  }, [route.params]);
+
+
 
   const handleProfileImageSelect = () => {
     // Implement your image selection logic here
@@ -34,7 +55,7 @@ export default function MyProfile() {
   };
 
   const handleUserDetailsPress = () => {
-    navigation.navigate('UserDetails');
+    navigation.navigate('UserDetails', { userData});
     // Implement the action when the "User Details" button is pressed
   };
 
@@ -97,6 +118,7 @@ export default function MyProfile() {
               />
             </Svg>
 
+
             <View style={styles.profileContainer}>
               <TouchableOpacity onPress={handleProfileImageSelect}>
                 <View style={styles.profileImageContainer}>
@@ -105,11 +127,11 @@ export default function MyProfile() {
                   ) : (
                     <Image source={require('../assets/default_profile.png')} style={styles.profileImage} />
                   )}
-                </View>
-              </TouchableOpacity>
-              <Text style={styles.nicknameText}>Nickname</Text>
-              <Text style={styles.emailText}>example@gmail.com</Text>
-
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.nicknameText}>{userData?.username}</Text>
+                <Text style={styles.emailText}>{userData?.email}</Text>
+                <Text style={styles.emailText}>{userData?.password}</Text>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleUserDetailsPress}>
                   <View style={styles.buttonIcon}></View>

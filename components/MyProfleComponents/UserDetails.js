@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,24 +13,39 @@ import { scale, verticalScale } from '../scalingUtils';
 import ArrowButtonLeft from '../SVG/NavigationIcon/ArrowButtonLeft';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-export default function UserDetails() {
+export default function UserDetails({route}) {
   const navigation = useNavigation();
+
   const [profileImage, setProfileImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedFirstName, setEditedFirstName] = useState('John');
-  const [editedLastName, setEditedLastName] = useState('Doe');
-  const [editedGender, setEditedGender] = useState('Male');
+  const [editedFirstName, setEditedFirstName] = useState('');
+  const [editedLastName, setEditedLastName] = useState('');
+  const [editedGender, setEditedGender] = useState('');
   const [editedBirthday, setEditedBirthday] = useState({
-    month: 'January',
-    day: '1',
-    year: '1990',
+    month: '',
+    day: '',
+    year: '',
   });
-  const [editedEmail, setEditedEmail] = useState('john.doe@example.com');
+  const [editedEmail, setEditedEmail] = useState('');
   const [editedPassword, setEditedPassword] = useState('');
   const [editedConfirmPassword, setEditedConfirmPassword] = useState('');
 
   const [monthPickerVisible, setMonthPickerVisible] = useState(false);
   const [yearPickerVisible, setYearPickerVisible] = useState(false);
+
+  useEffect(() => {
+    if (route.params && route.params.userData) {
+      const userData = route.params.userData;
+      setProfileImage(userData.profileImage);
+      setEditedFirstName(userData.firstName);
+      setEditedLastName(userData.lastName);
+      setEditedEmail(userData.email);
+      setEditedPassword(userData.password)
+      setEditedConfirmPassword(userData.confirmPassword)
+      
+      // Set the values for other fields based on the userData object
+    }
+  }, [route.params]);
 
   const handleProfileImageSelect = () => {
     // Implement your image selection logic here
@@ -78,6 +93,18 @@ export default function UserDetails() {
     setEditedBirthday({ ...editedBirthday, year: date.getFullYear().toString() });
     toggleYearPicker();
   };
+
+  const handleDateConfirm = (date) => {
+    // Process the selected date and update the state
+    setEditedBirthday({
+      month: date.getMonth() + 1, // Months are 0-based
+      day: date.getDate(),
+      year: date.getFullYear(),
+    });
+    toggleMonthPicker();
+    toggleYearPicker();
+  };
+
 
   return (
     <View style={styles.container}>
@@ -145,13 +172,7 @@ export default function UserDetails() {
           />
         </View>
 
-        <TextInput
-          style={styles.inputBox}
-          value={editedGender}
-          onChangeText={(text) => setEditedGender(text)}
-          placeholder="Gender"
-          editable={isEditing}
-        />
+
         <View style={styles.birthdayContainer}>
           <TextInput
             style={[styles.inputBox, styles.birthdayInput]}

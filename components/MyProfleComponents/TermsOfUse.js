@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import { scale, moderateScale, verticalScale } from '../scalingUtils'; // Import scaling functions
@@ -39,7 +39,51 @@ export default function TermsOfUse() {
           stroke="url(#paint0_linear_237_1125)"
           strokeWidth={scale(0.5)}
         />
-      </Svg>
+      </Svg> 
+      <ScrollView>
+      <Text style={styles.paragraphText}>{'\n'}Welcome to HueMe, a mobile application provided by AinZ. 
+      By using the HueMe mobile application, you agree to comply with and be bound by the following Terms of Use. 
+      If you do not agree to these terms, please do not use the App.{'\n\n'}
+      By downloading, installing, or using the HueMe Application, you agree to be bound by the terms and conditions outlined in this Agreement.
+      </Text>
+
+      <Text style={styles.HeaderText}>License to Use</Text>
+      <Text style={styles.paragraphText}>We grant you a limited, non-exclusive, non-transferable, 
+      revocable license to use the Application for your personal, non-commercial use. 
+      You may not sublicense, assign, or transfer this license.</Text>
+
+      <Text style={styles.HeaderText}>Data Collection</Text>
+      <Text style={styles.subHead2Text}>Pesonal Information</Text>  
+      <Text style={styles.paragraphText}>In order to enhance your experience with HueMe, we may collect and store personal information, 
+      including but not limited to your first name, last name, and email address. We prioritize the security and confidentiality of this information. 
+      Please refer to our Privacy Policy for more details on how we handle your personal information.</Text>
+
+      <Text style={styles.subHead2Text}>Camera and Gallery Access</Text>  
+      <Text style={styles.paragraphText}>HueMe may request access to your device's camera and gallery features for specific functionalities. 
+      This access is used solely for the intended purposes of the App, such as capturing photos or accessing images for customization. 
+      We do not use this data for any unauthorized or unrelated activities.</Text>
+
+      <Text style={styles.HeaderText}>User Accounts</Text>
+      <Text style={styles.paragraphText}>You may be required to create an account to access certain features of the Application. 
+      You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.</Text>
+      <Text style={styles.subHead2Text}>Accurate Information</Text>  
+      <Text style={styles.paragraphText}>You agree to provide accurate and complete information during the registration process and while using the App. 
+      Any changes to your information should be promptly updated within the App.</Text>
+      <Text style={styles.subHead2Text}>Usage Restrictions</Text>  
+      <Text style={styles.paragraphText}>You agree not to misuse the App, including but not limited to engaging in unauthorized access, using the App for illegal purposes, 
+      or violating any applicable laws or regulations.{'\n'}</Text>
+
+      <Text style={styles.HeaderText}>Intellectual Property</Text>  
+      <Text style={styles.subHead2Text}>Ownership</Text>  
+      <Text style={styles.paragraphText}>Ainz retains all rights, title, and interest in and to the App, including all content, graphics, and designs. 
+      The Application is protected by copyright, trademark, and other intellectual property laws.</Text>
+      <Text style={styles.subHead2Text}>License</Text>  
+      <Text style={styles.paragraphText}>Subject to your compliance with these Terms, 
+      Ainz grants you a limited, non-exclusive, non-transferable, revocable license to use the App for personal, non-commercial purposes.</Text>
+
+      <Text style={styles.HeaderText}>Termination of Account</Text>
+      <Text style={styles.paragraphText}>Ainz may terminate user accounts that violate these terms or engage in activities that compromise the integrity of the application.</Text>
+      </ScrollView>
     </View>
   );
 }
@@ -52,9 +96,44 @@ const styles = StyleSheet.create({
   Text: {
     flexShrink: 0,
     color: '#5A534A',
-    fontSize: scale(30),
+    fontSize: scale(25),
     marginLeft: scale(40),
     marginTop: verticalScale(150),
+  },
+  HeaderText: {
+    flexShrink: 0,
+    color: '#5A534A',
+    fontSize: scale(18),
+    fontWeight: 'bold',
+    marginLeft: scale(40),
+    marginTop: verticalScale(25),
+  },
+  paragraphText: {
+    flexShrink: 0,
+    color: '#5A534A',
+    fontSize: scale(13),
+    textAlign: "justify",
+    marginLeft: scale(40),
+    marginRight: scale(40),
+    marginTop: verticalScale(5),
+  },
+  subHeadText: {
+    flexShrink: 0,
+    color: '#5A534A',
+    fontSize: scale(15),
+    fontStyle: "italic",
+    marginLeft: scale(40),
+    marginRight: scale(40),
+    marginTop: verticalScale(5),
+  },
+  subHead2Text: {
+    flexShrink: 0,
+    color: '#5A534A',
+    fontSize: scale(13),
+    fontWeight: 'bold',
+    marginLeft: scale(40),
+    marginRight: scale(40),
+    marginTop: verticalScale(10),
   },
   hueIcon: {
     width: scale(45),

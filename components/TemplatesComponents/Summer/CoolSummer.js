@@ -41,9 +41,7 @@ export default function CameraDisplay() {
       onPress={() => handleVerticalRectanglePress(color)}
     >
       <View style={styles.savedButtonContainer}>
-        <TouchableOpacity onPress={handleColorSavedPress}>
           <Savedbutton width={30} height={30} color="white" />
-        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

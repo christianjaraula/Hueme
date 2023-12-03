@@ -99,8 +99,6 @@ export default function SecurityAndPrivacy() {
       We may periodically update our Privacy Policy. Changes will be communicated through email, a notice on our Service, and by updating the 'Last updated' date at the top of this page. 
       It's recommended to check this Privacy Policy regularly for any updates, as changes become effective upon posting.
       </Text>
-
-
       </ScrollView>
     </View>
   );

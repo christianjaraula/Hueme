@@ -133,10 +133,6 @@ const SignUp = () => {
       Alert.alert('Please fill in all the required fields');
       return;
     }
-    if (password !== confirmPassword) {
-      Alert.alert('Passwords do not match');
-      return;
-    }
   
     // If all required fields are filled, navigate to the next screen
     navigation.navigate('SkinColorBar');

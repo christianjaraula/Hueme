@@ -39,22 +39,27 @@ export default function MyProfile() {
   };
 
   const handleSecurityAndPrivacyPress = () => {
+    navigation.navigate('SecurityAndPrivacy');
     // Implement the action when the "Security and Privacy" button is pressed
   };
 
   const handleSavedPalettesPress = () => {
+    navigation.navigate('SavedPalette');
     // Implement the action when the "Saved Palettes" button is pressed
   };
 
   const handleTermsOfUsePress = () => {
+    navigation.navigate('TermsOfUse');
     // Implement the action when the "Terms of Use" button is pressed
   };
 
   const handleAboutUSPress = () => {
+    navigation.navigate('AboutUs');
     // Implement the action when the "About Us" button is pressed
   };
 
   const handleFeedbackPress = () => {
+    navigation.navigate('HelpAndFeedback');
     // Implement the action when the "Help and Feedback" button is pressed
   };
 

@@ -5,7 +5,7 @@ import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import { scale, moderateScale, verticalScale } from '../scalingUtils'; // Import scaling functions
 import ArrowButtonLeft from '../SVG/NavigationIcon/ArrowButtonLeft';
 
-export default function UserDetails() {
+export default function HelpAndFeedback() {
   const navigation = useNavigation(); // Get the navigation object
 
   return (
@@ -18,7 +18,7 @@ export default function UserDetails() {
         >
           <ArrowButtonLeft width={scale(40)} height={scale(40)} color='#5A534A' />
         </TouchableOpacity>
-        <Text style={styles.Text}>User Details</Text>
+        <Text style={styles.Text}>Help and feedback</Text>
       </View>
       <Svg height={verticalScale(2)} width={scale(194)} style={styles.lineContainer}>
         <Defs>
@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
   },
   Text: {
     flexShrink: 0,
+    alignSelf: 'center',
     color: '#5A534A',
     fontSize: scale(30),
-    marginLeft: scale(40),
     marginTop: verticalScale(150),
   },
   hueIcon: {

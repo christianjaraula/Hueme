@@ -27,7 +27,6 @@ import { useRoute } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import { scale, verticalScale, moderateScale } from './scalingUtils'; // Import the scaling utilities
 
-const { width, height } = Dimensions.get('window');
 
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -254,9 +253,9 @@ const SkinColorBar = () => {
         <TouchableOpacity onPress={handleIconClick7} style={styles.iconContainerStyle7}>
           {renderSvg7()}
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleIconClick8} style={styles.iconContainerStyle8}>
+        {/* <TouchableOpacity onPress={handleIconClick8} style={styles.iconContainerStyle8}>
           {renderSvg8()}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
           <ArrowButtonLeft width={scale(40)} height={scale(40)} color="#5A534A" />
         </TouchableOpacity>
@@ -325,7 +324,7 @@ const styles = StyleSheet.create({
     color: 'rgba(74, 66, 56, 0.75)',
     fontSize: moderateScale(10),
     fontWeight: '500',
-    right: scale(130),
+    right: scale(120),
     marginTop: verticalScale(20),
   },
   lineContainer: {

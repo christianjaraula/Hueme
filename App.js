@@ -25,8 +25,11 @@ import SoftAutumn from './components/TemplatesComponents/Autumn/SoftAutumn';
 import DarkWinter from './components/TemplatesComponents/Winter/DarkWinter';
 import DeepWinter from './components/TemplatesComponents/Winter/DeepWinter';
 import VividWinter from './components/TemplatesComponents/Winter/VividWinter';
-
-
+import SavedPalette from './components/MyProfleComponents/SavedPalette';
+import AboutUs from './components/MyProfleComponents/AboutUs';
+import HelpAndFeedback from './components/MyProfleComponents/HelpAndFeedback';
+import SecurityAndPrivacy from './components/MyProfleComponents/SecurityAndPrivacy';
+import TermsOfUse from './components/MyProfleComponents/TermsOfUse';
 
 
 
@@ -60,6 +63,14 @@ const App = () => {
         <Stack.Screen name="DeepWinter" component={DeepWinter} options={{ headerShown: false }}  />
         <Stack.Screen name="DarkWinter" component={DarkWinter} options={{ headerShown: false }}  />
         <Stack.Screen name="VividWinter" component={VividWinter} options={{ headerShown: false }}  />
+        <Stack.Screen name="SavedPalette" component={SavedPalette} options={{ headerShown: false }}  />
+        <Stack.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }}  />
+        <Stack.Screen name="HelpAndFeedback" component={HelpAndFeedback} options={{ headerShown: false }}  />
+        <Stack.Screen name="TermsOfUse" component={TermsOfUse} options={{ headerShown: false }}  />
+        <Stack.Screen name="SecurityAndPrivacy" component={SecurityAndPrivacy} options={{ headerShown: false }}  />
+
+
+
 
 
 

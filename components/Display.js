@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import * as Font from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import { moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
 
 import { db } from "../services/firebase";
-import { getDocs, query, collection, where } from 'firebase/firestore';
+import { getDocs, query, collection, where, doc } from 'firebase/firestore';
 
 
 
 export default function Display() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     async function loadFont() {
@@ -30,10 +32,32 @@ export default function Display() {
     return null;
   }
 
-  const handleLogIn = () => {
-    navigation.navigate('MyProfile');
-  };
+  const handleLogin = async () => {
+    try {
+      const accountQuery = query(collection(db, 'account'), where('email', '==', email));
+      const querySnapshot = await getDocs(accountQuery);
+      console.log(querySnapshot)
 
+      if (!querySnapshot.empty) {
+        const accountDoc = querySnapshot.docs[0];
+        const userData = { ...accountDoc.data() }
+       
+        console.log(userData)
+        if (userData.password === password) {
+        
+          // Navigate to the MyProfile screen
+          navigation.navigate('MyProfile');
+        } else {
+          Alert.alert('Invalid password');
+        }
+      } else {
+        Alert.alert('User not found');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+  
   const handleCreateAccount = () => {
     navigation.navigate('SignUp'); // Navigate to the SignUp screen
   };
@@ -46,29 +70,33 @@ export default function Display() {
         <Text style={styles.subtext}>Discover your True Colors</Text>
       </View>
 
-      {/* Input Component */}
-      <View style={styles.inputGroup}>
-        {/* Email Input */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Email Address</Text>
-          <TextInput
-            style={styles.emailInput}
-            placeholderTextColor="rgba(42, 45, 52, 0.50)"
-          />
+  {/* Input Component */}
+  <View style={styles.inputGroup}>
+          {/* Email Input */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Email Address</Text>
+            <TextInput
+              style={styles.emailInput}
+              placeholderTextColor="rgba(42, 45, 52, 0.50)"
+        value={email}
+        onChangeText={(value) => setEmail(value)}
+            />
+          </View>
+          {/* Password Input */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              style={styles.passwordInput}
+              placeholderTextColor="rgba(42, 45, 52, 0.50)"
+              secureTextEntry
+        value={password}
+        onChangeText={(value) => setPassword(value)}
+            />
+          </View>
         </View>
-        {/* Password Input */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.passwordInput}
-            placeholderTextColor="rgba(42, 45, 52, 0.50)"
-            secureTextEntry
-          />
-        </View>
-      </View>
 
       {/* LogIn Component */}
-      <TouchableOpacity style={styles.loginContainer} onPress={handleLogIn}>
+      <TouchableOpacity style={styles.loginContainer} onPress={handleLogin}>
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
 

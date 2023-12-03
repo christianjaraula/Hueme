@@ -12,6 +12,7 @@ import SavedPalettesIcon from './SVG/MyProfileIcons/SavedPalettesIcon';
 import TermsOfUseIcon from './SVG/MyProfileIcons/TermsOfUseIcon';
 import AboutUsIcon from './SVG/MyProfileIcons/AboutUsIcon';
 import FeedbackIcon from './SVG/MyProfileIcons/FeedbackIcon';
+import TemplateIcon from './SVG/MyProfileIcons/TemplateIcon';
 
 export default function MyProfile() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -43,14 +44,19 @@ export default function MyProfile() {
     // Implement the action when the "Security and Privacy" button is pressed
   };
 
-  const handleSavedPalettesPress = () => {
-    navigation.navigate('SavedPalette');
-    // Implement the action when the "Saved Palettes" button is pressed
-  };
+  // const handleSavedPalettesPress = () => {
+  //   navigation.navigate('SavedPalette');
+  //   // Implement the action when the "Saved Palettes" button is pressed
+  // };
 
-  const handleTermsOfUsePress = () => {
-    navigation.navigate('TermsOfUse');
-    // Implement the action when the "Terms of Use" button is pressed
+  // const handleTermsOfUsePress = () => {
+  //   navigation.navigate('TermsOfUse');
+  //   // Implement the action when the "Terms of Use" button is pressed
+  // };
+
+  const handleTemplates = () => {
+    navigation.navigate('Templates');
+    // Implement the action when the "About Us" button is pressed
   };
 
   const handleAboutUSPress = () => {
@@ -111,6 +117,14 @@ export default function MyProfile() {
               <Text style={styles.emailText}>example@gmail.com</Text>
 
               <View style={styles.buttonContainer}>
+                <TouchableOpacity style={[styles.button, { backgroundColor: '#630D1E' }]} onPress={handleTemplates}>
+                  <View style={styles.buttonIcon}></View>
+                  <TemplateIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
+                  <Text style={[styles.iconText, { color: '#F0EDE7' }]}>Templates</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleUserDetailsPress}>
                   <View style={styles.buttonIcon}></View>
                   <UserIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
@@ -126,21 +140,21 @@ export default function MyProfile() {
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.buttonContainer}>
+              {/* <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleSavedPalettesPress}>
                   <View style={styles.buttonIcon}></View>
                   <SavedPalettesIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Saved Palettes</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
 
-              <View style={styles.buttonContainer}>
+              {/* <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleTermsOfUsePress}>
                   <View style={styles.buttonIcon}></View>
                   <TermsOfUseIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Terms of Use</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleAboutUSPress}>
@@ -258,8 +272,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   buttonIcon: {
-    width: moderateScale(23),
-    height: moderateScale(26),
     color: '#F0EDE7',
     marginRight: -moderateScale(250),
   },

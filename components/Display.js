@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import * as Font from 'expo-font';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
 
 import { db } from "../services/firebase";
@@ -46,7 +46,7 @@ export default function Display() {
         if (userData.password === password) {
         
           // Navigate to the MyProfile screen
-          navigation.navigate('MyProfile');
+          navigation.navigate('MyProfile', { userData });
         } else {
           Alert.alert('Invalid password');
         }

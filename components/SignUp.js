@@ -123,6 +123,7 @@ const SignUp = () => {
       !lastName ||
       !selectedMonth ||
       !selectedYear ||
+      selectedGender === '' ||
       !day ||
       !email ||
       !password ||
@@ -144,6 +145,7 @@ const SignUp = () => {
         lastName: lastName,
         selectedMonth: selectedMonth,
         selectedYear: selectedYear,
+        selectedGender: selectedGender,
         day: day,
         email: email,
         password: password,
@@ -405,11 +407,10 @@ const styles = StyleSheet.create({
   dateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '101%',
   },
   dateBox: {
     flex: 1,
-    marginRight: scale(5), // Using moderateScale for padding
+    paddingRight: moderateScale(1), // Using moderateScale for padding
   },
   emailBox: {
     marginTop: verticalScale(10), // Using verticalScale for margin

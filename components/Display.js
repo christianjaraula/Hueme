@@ -4,6 +4,11 @@ import * as Font from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import { moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
 
+import { db } from "../services/firebase";
+import { getDocs, query, collection, where } from 'firebase/firestore';
+
+
+
 export default function Display() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const navigation = useNavigation();

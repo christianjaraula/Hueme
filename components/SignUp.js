@@ -23,6 +23,8 @@ import TermsOfUse from './TermsOfUse'; // Import the TermsOfUse component
 import LineSVG from './SVG/LineSVG';
 import ProfileContainer from './SignUpComponents/ProfileContainer';
 
+import { db } from "../services/firebase";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore"; 
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -101,7 +103,7 @@ const SignUp = () => {
     }
   };
 
-  const handleNavigateToSkinColorBar = () => {
+  const handleNavigateToSkinColorBar = async () => {
     // Debug logging to check the values of the fields
     console.log('firstName:', firstName);
     console.log('lastName:', lastName);
@@ -121,11 +123,10 @@ const SignUp = () => {
       !lastName ||
       !selectedMonth ||
       !selectedYear ||
-      selectedGender === '' || // Updated this line to check for an empty string
+      selectedGender === '' ||
       !day ||
       !email ||
       !password ||
-      
       !confirmPassword ||
       !profileImage ||
       !username
@@ -134,12 +135,36 @@ const SignUp = () => {
       return;
     }
   
-    // If all required fields are filled, navigate to the next screen
-    navigation.navigate('SkinColorBar');
+    try {
+      // Create a reference to the 'users' collection in Firestore
+      const userRef = collection(db, 'account');
+  
+      // Set the user data in the document
+      const docRef = await addDoc(userRef, {
+        firstName: firstName,
+        lastName: lastName,
+        selectedMonth: selectedMonth,
+        selectedYear: selectedYear,
+        selectedGender: selectedGender,
+        day: day,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        profileImage: profileImage,
+        username: username,
+      });
+  
+      console.log('User data added with ID: ', docRef.id);
+  
+      // If all required fields are filled and data is added to Firestore, navigate to the next screen
+      navigation.navigate('SkinColorBar');
+    } catch (error) {
+      console.error('Error adding user data to Firestore:', error.message);
+      Alert.alert('Error', 'An error occurred while creating your account. Please try again.');
+    }
   };
   
 
-  
 
   return (
     <KeyboardAvoidingView

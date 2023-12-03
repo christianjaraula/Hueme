@@ -405,10 +405,11 @@ const styles = StyleSheet.create({
   dateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '101%',
   },
   dateBox: {
     flex: 1,
-    paddingRight: moderateScale(1), // Using moderateScale for padding
+    marginRight: scale(5), // Using moderateScale for padding
   },
   emailBox: {
     marginTop: verticalScale(10), // Using verticalScale for margin

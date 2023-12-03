@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,31 +9,28 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
-import { scale, verticalScale } from '../scalingUtils'; // Import scaling functions
+import { scale, verticalScale } from '../scalingUtils';
 import ArrowButtonLeft from '../SVG/NavigationIcon/ArrowButtonLeft';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-
 export default function UserDetails() {
-  const navigation = useNavigation(); // Get the navigation object
+  const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedFirstName, setEditedFirstName] = useState('John'); // Initial value for demo
-  const [editedLastName, setEditedLastName] = useState('Doe'); // Initial value for demo
-  const [editedGender, setEditedGender] = useState('Male'); // Initial value for demo
+  const [editedFirstName, setEditedFirstName] = useState('John');
+  const [editedLastName, setEditedLastName] = useState('Doe');
+  const [editedGender, setEditedGender] = useState('Male');
   const [editedBirthday, setEditedBirthday] = useState({
     month: 'January',
     day: '1',
     year: '1990',
-  }); // Initial value for demo
-  const [editedEmail, setEditedEmail] = useState('john.doe@example.com'); // Initial value for demo
-  const [editedPassword, setEditedPassword] = useState(''); // Initial value for demo
-  const [editedConfirmPassword, setEditedConfirmPassword] = useState(''); // Initial value for demo
+  });
+  const [editedEmail, setEditedEmail] = useState('john.doe@example.com');
+  const [editedPassword, setEditedPassword] = useState('');
+  const [editedConfirmPassword, setEditedConfirmPassword] = useState('');
 
-  const [isMonthPickerVisible, setMonthPickerVisible] = useState(false);
-  const [isYearPickerVisible, setYearPickerVisible] = useState(false);
-  const monthPickerRef = useRef(null);
-  const yearPickerRef = useRef(null);
+  const [monthPickerVisible, setMonthPickerVisible] = useState(false);
+  const [yearPickerVisible, setYearPickerVisible] = useState(false);
 
   const handleProfileImageSelect = () => {
     // Implement your image selection logic here
@@ -65,29 +62,23 @@ export default function UserDetails() {
   ];
 
   const toggleMonthPicker = () => {
-    if (monthPickerRef.current) {
-      monthPickerRef.current.scrollTo({ y: 100, animated: true });
-    }
-    setMonthPickerVisible(!isMonthPickerVisible);
+    setMonthPickerVisible(!monthPickerVisible);
   };
 
-  const selectMonth = (month) => {
-    setEditedBirthday({ ...editedBirthday, month });
+  const toggleYearPicker = () => {
+    setYearPickerVisible(!yearPickerVisible);
+  };
+
+  const handleMonthConfirm = (date) => {
+    setEditedBirthday({ ...editedBirthday, month: months[date.getMonth()] });
     toggleMonthPicker();
-  };
-
-  const showYearPicker = () => {
-    setYearPickerVisible(true);
-  };
-
-  const hideYearPicker = () => {
-    setYearPickerVisible(false);
   };
 
   const handleYearConfirm = (date) => {
     setEditedBirthday({ ...editedBirthday, year: date.getFullYear().toString() });
-    hideYearPicker();
+    toggleYearPicker();
   };
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/HueIcon.png')} style={styles.hueIcon} />
@@ -121,7 +112,6 @@ export default function UserDetails() {
         />
       </Svg>
 
-      {/* New TouchableOpacity Component */}
       <TouchableOpacity onPress={handleProfileImageSelect}>
         <View style={styles.profileImageContainer}>
           {profileImage ? (
@@ -138,7 +128,6 @@ export default function UserDetails() {
           {isEditing ? 'Cancel' : 'Edit User Details'}
         </Text>
 
-        {/* Editable User Details */}
         <View style={styles.nameContainer}>
           <TextInput
             style={[styles.inputBox, styles.halfInput]}
@@ -183,7 +172,7 @@ export default function UserDetails() {
             value={editedBirthday.year}
             placeholder="Year"
             editable={isEditing}
-            onFocus={showYearPicker}
+            onFocus={toggleYearPicker}
           />
         </View>
         <TextInput
@@ -216,30 +205,26 @@ export default function UserDetails() {
           </TouchableOpacity>
         )}
       </View>
-       {/* Month Picker */}
+
       <DateTimePickerModal
-        isVisible={isMonthPickerVisible}
+        isVisible={monthPickerVisible}
         mode="date"
-        onConfirm={(date) => selectMonth(months[date.getMonth()])}
+        onConfirm={handleMonthConfirm}
         onCancel={toggleMonthPicker}
         display="spinner"
-        ref={monthPickerRef}
       />
 
-      {/* Year Picker */}
       <DateTimePickerModal
-        isVisible={isYearPickerVisible}
+        isVisible={yearPickerVisible}
         mode="date"
         onConfirm={handleYearConfirm}
-        onCancel={hideYearPicker}
+        onCancel={toggleYearPicker}
         display="spinner"
         maximumDate={new Date()}
-        ref={yearPickerRef}
       />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -332,11 +317,12 @@ const styles = StyleSheet.create({
   birthdayContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '80%',
+    width: '84%',
   },
   birthdayInput: {
     flex: 1,
-    marginRight: scale(1),
+    marginRight: scale(5),
+    marginLeft: scale(7),
   },
 });
 

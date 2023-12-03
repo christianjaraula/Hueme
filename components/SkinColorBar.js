@@ -253,9 +253,9 @@ const SkinColorBar = () => {
         <TouchableOpacity onPress={handleIconClick7} style={styles.iconContainerStyle7}>
           {renderSvg7()}
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={handleIconClick8} style={styles.iconContainerStyle8}>
+        <TouchableOpacity onPress={handleIconClick8} style={styles.iconContainerStyle8}>
           {renderSvg8()}
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
           <ArrowButtonLeft width={scale(40)} height={scale(40)} color="#5A534A" />
         </TouchableOpacity>

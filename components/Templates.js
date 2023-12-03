@@ -9,6 +9,7 @@ import Summer from './TemplatesComponents/Summer/Summer';
 import Autumn from './TemplatesComponents/Autumn/Autumn';
 import Winter from './TemplatesComponents/Winter/Winter';
 import { Dimensions } from 'react-native';
+import MyProfileIcon from './SVG/MyProfileIcons/MyProfileIcon';
 
 const { width, height } = Dimensions.get('window');
 const guidelineBaseWidth = 350;
@@ -44,14 +45,15 @@ export default function Templates({ }) {
     return null;
   }
 
-  const handleNavigateToSkinColorBar = () => {
-    navigation.navigate('SkinColorBar', { cameraVisible: true });
+  const handleNavigateToMyProfle= () => {
+    navigation.navigate('MyProfile', { cameraVisible: true });
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleNavigateToSkinColorBar} style={styles.arrowButton}>
-        <ArrowButtonLeft width={40} height={40} color="#5A534A" />
+      <TouchableOpacity style={styles.button} onPress={handleNavigateToMyProfle}>
+      <View style={styles.buttonIcon}></View>
+      <MyProfileIcon width={moderateScale(20)} height={moderateScale(23)} color="#F0EDE7" />
       </TouchableOpacity>
       <View>
         <Text style={[styles.colorBarText]}>Color Bar</Text>
@@ -115,4 +117,15 @@ const styles = StyleSheet.create({
     marginBottom: moderateScale(20),
     top: moderateScale(40),
   },
+  button: {
+    width: moderateScale(50),
+    height: verticalScale(40),
+    borderRadius: moderateScale(10),
+    backgroundColor: '#5A534A',
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: moderateScale(30),
+    top: moderateScale(75),
+    position: 'absolute',
+  }
 });

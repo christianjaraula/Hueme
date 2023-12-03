@@ -81,7 +81,7 @@ export default function TermsOfUse() {
       <Text style={styles.paragraphText}>Subject to your compliance with these Terms, 
       Ainz grants you a limited, non-exclusive, non-transferable, revocable license to use the App for personal, non-commercial purposes.</Text>
 
-      <Text style={styles.HeaderText}>Termination of Accoun</Text>
+      <Text style={styles.HeaderText}>Termination of Account</Text>
       <Text style={styles.paragraphText}>Ainz may terminate user accounts that violate these terms or engage in activities that compromise the integrity of the application.</Text>
       </ScrollView>
     </View>

@@ -76,10 +76,10 @@ export default function MyProfile({route}) {
   //   // Implement the action when the "Saved Palettes" button is pressed
   // };
 
-  // const handleTermsOfUsePress = () => {
-  //   navigation.navigate('TermsOfUse');
-  //   // Implement the action when the "Terms of Use" button is pressed
-  // };
+   const handleTermsOfUsePress = () => {
+     navigation.navigate('TermsOfUse');
+     // Implement the action when the "Terms of Use" button is pressed
+   };
 
   const handleTemplates = () => {
     navigation.navigate('Templates');
@@ -91,10 +91,10 @@ export default function MyProfile({route}) {
     // Implement the action when the "About Us" button is pressed
   };
 
-  const handleFeedbackPress = () => {
-    navigation.navigate('HelpAndFeedback');
+ // const handleFeedbackPress = () => {
+ //   navigation.navigate('HelpAndFeedback');
     // Implement the action when the "Help and Feedback" button is pressed
-  };
+ // };
 
   const handleLogoutPress = () => {
     // Implement your logout logic here
@@ -175,13 +175,13 @@ export default function MyProfile({route}) {
                 </TouchableOpacity>
               </View> */}
 
-              {/* <View style={styles.buttonContainer}>
+              <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleTermsOfUsePress}>
                   <View style={styles.buttonIcon}></View>
                   <TermsOfUseIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Terms of Use</Text>
                 </TouchableOpacity>
-              </View> */}
+              </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleAboutUSPress}>
@@ -191,13 +191,13 @@ export default function MyProfile({route}) {
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.buttonContainer}>
+              {/* <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleFeedbackPress}>
                   <View style={styles.buttonIcon}></View>
                   <FeedbackIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={styles.iconText}>Help and Feedback</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogoutPress}>

@@ -53,12 +53,12 @@ export default function CameraDisplay() {
       </View>
 
       <View style={styles.verticalRectanglesContainer}>
-        <VerticalRectangle color="#675E57" />
-        <VerticalRectangle color="#326F32" />
-        <VerticalRectangle color="#1170BA" />
-        <VerticalRectangle color="#EBA94B" />
-        <VerticalRectangle color="#FA7D61" />
-        <VerticalRectangle color="#B63C37" />
+        <VerticalRectangle color="#745539" />
+        <VerticalRectangle color="#134172" />
+        <VerticalRectangle color="#097C5D" />
+        <VerticalRectangle color="#8B9B37" />
+        <VerticalRectangle color="#FB7353" />
+        <VerticalRectangle color="#D8364D" />
       </View>
 
       <Text style={styles.text}>Clear Spring scheme</Text>

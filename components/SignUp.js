@@ -64,6 +64,9 @@ const SignUp = () => {
     }
     setMonthPickerVisible(!isMonthPickerVisible);
   };
+  const toggleYearPicker = () => {
+    setYearPickerVisible(!isYearPickerVisible);
+  };
 
   const selectMonth = (month) => {
     setSelectedMonth(month);
@@ -225,23 +228,24 @@ const SignUp = () => {
         </View>
 
         <View style={styles.genderBox}>
-          <Text style={styles.label}>Gender</Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              selectedValue={selectedGender}
-              onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
-            >
-              <Picker.Item label="Male" value="Male" />
-              <Picker.Item label="Female" value="Female" />
-            </Picker>
-          </View>
+        <Text style={styles.label}>Gender</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedGender}
+            onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
+          >
+            <Picker.Item label="Select Gender" value="" />
+            <Picker.Item label="Male" value="Male" />
+            <Picker.Item label="Female" value="Female" />
+          </Picker>
         </View>
+      </View>
 
         <View style={styles.dateContainer}>
           <View style={styles.dateBox}>
             <Text style={styles.label}>Month</Text>
             <TouchableOpacity onPress={toggleMonthPicker}>
-              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth}</Text>
+              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth || 'Select Month'}</Text>
             </TouchableOpacity>
             {isMonthPickerVisible && (
               <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#F0EDE7', zIndex: 1 }}>
@@ -268,24 +272,44 @@ const SignUp = () => {
             <TextInput
               textAlign="center"
               style={styles.inputBox}
-              placeholder=""
+              placeholder="Enter Day"
               value={day}
               onChangeText={(text) => setDay(text)}
             />
           </View>
 
           <View style={styles.dateBox}>
-            <Text style={styles.label}>Year</Text>
-            <TouchableOpacity onPress={showYearPicker}>
-              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedYear}</Text>
-            </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={isYearPickerVisible}
-              mode="date"
-              onConfirm={handleYearConfirm}
-              onCancel={hideYearPicker}
-            />
+        <Text style={styles.label}>Year</Text>
+        <TouchableOpacity onPress={toggleYearPicker}>
+          <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedYear || 'Select Year' }</Text>
+        </TouchableOpacity>
+        {isYearPickerVisible && (
+          <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#F0EDE7', zIndex: 1 }}>
+            <ScrollView
+              ref={monthPickerRef} // You can reuse the monthPickerRef
+              contentContainerStyle={styles.monthPickerContent}
+            >
+              {/* Render your year items here */}
+              {/* For example, you can render a range of years */}
+              {Array.from({ length: 50 }, (_, index) => {
+                const year = new Date().getFullYear() - index;
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      setSelectedYear(year);
+                      toggleYearPicker();
+                    }}
+                    style={styles.monthItem}
+                  >
+                    <Text>{year}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
           </View>
+        )}
+      </View>
         </View>
 
         <View style={styles.emailBox}>

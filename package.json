@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^19.0.0",
     "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-firebase/app": "^18.7.1",
@@ -26,6 +27,7 @@
     "expo-face-detector": "~12.2.0",
     "expo-font": "~11.4.0",
     "expo-image-picker": "~14.3.2",
+    "expo-media-library": "^15.6.0",
     "expo-permissions": "~14.2.1",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.7.0",
@@ -48,8 +50,7 @@
     "react-native-web": "~0.19.6",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
-    "typescript": "^4.9.4",
-    "@expo/webpack-config": "^19.0.0"
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

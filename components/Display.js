@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert, BackHandler, Linking } from 'react-native';
 import * as Font from 'expo-font';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { moderateScale, verticalScale } from './scalingUtils'; // Import scaling functions
 
 import { db } from "../services/firebase";
-import { getDocs, query, collection, where, doc } from 'firebase/firestore';
-
-
+import { getDocs, query, collection, where } from 'firebase/firestore';
+import { Camera } from 'expo-camera';
+import * as MediaLibrary from 'expo-media-library';
 
 export default function Display() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -34,30 +34,52 @@ export default function Display() {
 
   const handleLogin = async () => {
     try {
-      const accountQuery = query(collection(db, 'account'), where('email', '==', email));
-      const querySnapshot = await getDocs(accountQuery);
-      console.log(querySnapshot)
+      const cameraPermission = await Camera.requestPermissionsAsync();
+      const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
 
-      if (!querySnapshot.empty) {
-        const accountDoc = querySnapshot.docs[0];
-        const userData = { ...accountDoc.data() }
-       
-        console.log(userData)
-        if (userData.password === password) {
-        
-          // Navigate to the MyProfile screen
-          navigation.navigate('MyProfile', { userData });
+      if (cameraPermission.status === 'granted' && mediaLibraryPermission.status === 'granted') {
+        const accountQuery = query(collection(db, 'account'), where('email', '==', email));
+        const querySnapshot = await getDocs(accountQuery);
+
+        if (!querySnapshot.empty) {
+          const accountDoc = querySnapshot.docs[0];
+          const userData = { ...accountDoc.data() };
+
+          if (userData.password === password) {
+            // Navigate to the MyProfile screen
+            navigation.navigate('MyProfile', { userData });
+          } else {
+            Alert.alert('Invalid password');
+          }
         } else {
-          Alert.alert('Invalid password');
+          Alert.alert('User not found');
         }
       } else {
-        Alert.alert('User not found');
+        Alert.alert(
+          'Permission Denied',
+          'Please enable camera and media library permissions to use this app.',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                // Close the app when the user dismisses the alert
+                if (Platform.OS === 'android') {
+                  // For Android, use BackHandler to close the app
+                  BackHandler.exitApp();
+                } else {
+                  // For iOS, use Linking to open the app settings
+                  Linking.openSettings();
+                }
+              },
+            },
+          ]
+        );
       }
     } catch (error) {
       console.error('Error during login:', error);
     }
   };
-  
+
   const handleCreateAccount = () => {
     navigation.navigate('SignUp'); // Navigate to the SignUp screen
   };
@@ -70,30 +92,30 @@ export default function Display() {
         <Text style={styles.subtext}>Discover your True Colors</Text>
       </View>
 
-  {/* Input Component */}
-  <View style={styles.inputGroup}>
-          {/* Email Input */}
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email Address</Text>
-            <TextInput
-              style={styles.emailInput}
-              placeholderTextColor="rgba(42, 45, 52, 0.50)"
-        value={email}
-        onChangeText={(value) => setEmail(value)}
-            />
-          </View>
-          {/* Password Input */}
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.passwordInput}
-              placeholderTextColor="rgba(42, 45, 52, 0.50)"
-              secureTextEntry
-        value={password}
-        onChangeText={(value) => setPassword(value)}
-            />
-          </View>
+      {/* Input Component */}
+      <View style={styles.inputGroup}>
+        {/* Email Input */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Email Address</Text>
+          <TextInput
+            style={styles.emailInput}
+            placeholderTextColor="rgba(42, 45, 52, 0.50)"
+            value={email}
+            onChangeText={(value) => setEmail(value)}
+          />
         </View>
+        {/* Password Input */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.passwordInput}
+            placeholderTextColor="rgba(42, 45, 52, 0.50)"
+            secureTextEntry
+            value={password}
+            onChangeText={(value) => setPassword(value)}
+          />
+        </View>
+      </View>
 
       {/* LogIn Component */}
       <TouchableOpacity style={styles.loginContainer} onPress={handleLogin}>

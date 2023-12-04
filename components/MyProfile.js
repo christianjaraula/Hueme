@@ -139,7 +139,7 @@ export default function MyProfile({route}) {
                 <Text style={styles.emailText}>{userData?.email}</Text>
                 <Text style={styles.emailText}>{userData?.password}</Text>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, { backgroundColor: '#630D1E' }]} onPress={handleTemplates}>
+                <TouchableOpacity style={[styles.button, { backgroundColor: '#DB4E69' }]} onPress={handleTemplates}>
                   <View style={styles.buttonIcon}></View>
                   <TemplateIcon width={moderateScale(23)} height={moderateScale(26)} color="#F0EDE7" />
                   <Text style={[styles.iconText, { color: '#F0EDE7' }]}>Templates</Text>

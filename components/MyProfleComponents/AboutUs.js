@@ -1,5 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+/* import Airo from '../SVG/Profile/Airo.png';
+import Jaraula from '../SVG/Profile/Jaraula.png';
+import Nanquil from '../SVG/Profile/Nanquil.png';
+import Penas from '../SVG/Profile/Penas.png';
+import Valerio from '../SVG/Profile/Valerio.png'; */
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
 import { scale, moderateScale, verticalScale } from '../scalingUtils'; // Import scaling functions

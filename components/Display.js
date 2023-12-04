@@ -34,7 +34,7 @@ export default function Display() {
 
   const handleLogin = async () => {
     try {
-      const cameraPermission = await Camera.requestPermissionsAsync();
+      const cameraPermission = await Camera.requestMicrophonePermissionsAsync();
       const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
 
       if (cameraPermission.status === 'granted' && mediaLibraryPermission.status === 'granted') {

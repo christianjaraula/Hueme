@@ -194,18 +194,20 @@ export default function UserDetails({route}) {
 />
 
 <TextInput
-   style={[styles.inputBox, styles.birthdayInput]}
-   value={editedDay} // or String(editedDay.text)
-   onChangeText={(text) => setEditedDay({ text })}
-   placeholder="Day"
-   editable={isEditing}
+  style={[styles.inputBox, styles.birthdayInput]}
+  value={editedDay.toString()} // Convert to string
+  onChangeText={(text) => setEditedDay(text)}
+  placeholder="Day"
+  editable={isEditing}
 />
+
 <TextInput
-   style={[styles.inputBox, styles.birthdayInput]}
-   value={editedYear} // or String(editedYear.year)
-   placeholder="Year"
-   editable={isEditing}
-   onFocus={toggleYearPicker}
+  style={[styles.inputBox, styles.birthdayInput]}
+  value={editedYear.toString()} // Convert to string
+  onChangeText={(text) => setEditedYear(text)}
+  placeholder="Year"
+  editable={isEditing}
+  onFocus={toggleYearPicker}
 />
         </View>
         <TextInput

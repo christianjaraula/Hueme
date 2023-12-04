@@ -49,7 +49,7 @@ export default function AboutUs() {
       {/* Airo */}
       <Image source={Airo} style={styles.Airo}/>
       <Text style={styles.CornillezText}>Cornillez,</Text>
-      <Svg height={verticalScale(2)} width={scale(150)} style={styles.lineContainer}>
+      <Svg height={verticalScale(2)} width={scale(160)} style={styles.lineContainer}>
       <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"
@@ -75,7 +75,7 @@ export default function AboutUs() {
       {/* Jaraula */}
       <Image source={Jaraula} style={styles.Jaraula}/>
       <Text style={styles.JaraulaText}>Jaraula,</Text>
-      <Svg height={verticalScale(2)} width={scale(150)} style={styles.lineContainer}>
+      <Svg height={verticalScale(2)} width={scale(160)} style={styles.lineContainer}>
       <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"
@@ -101,7 +101,7 @@ export default function AboutUs() {
       {/* Nanquil */}
       <Image source={Nanquil} style={styles.Nanquil}/>
       <Text style={styles.NanquilText}>Nanquil,</Text>
-      <Svg height={verticalScale(2)} width={scale(150)} style={styles.lineContainer}>
+      <Svg height={verticalScale(2)} width={scale(160)} style={styles.lineContainer}>
       <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"
@@ -127,7 +127,7 @@ export default function AboutUs() {
       {/* Penas */}
       <Image source={Penas} style={styles.Penas}/>
       <Text style={styles.PenasText}>Penas,</Text>
-      <Svg height={verticalScale(2)} width={scale(150)} style={styles.lineContainer}>
+      <Svg height={verticalScale(2)} width={scale(160)} style={styles.lineContainer}>
       <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"
@@ -153,7 +153,7 @@ export default function AboutUs() {
       {/* Valerio */}
       <Image source={Valerio} style={styles.Valerio}/>
       <Text style={styles.ValerioText}>Valerio,</Text>
-      <Svg height={verticalScale(2)} width={scale(150)} style={styles.lineContainer}>
+      <Svg height={verticalScale(2)} width={scale(160)} style={styles.lineContainer}>
       <Defs>
           <LinearGradient
             id="paint0_linear_237_1125"

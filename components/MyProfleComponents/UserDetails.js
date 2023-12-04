@@ -21,12 +21,14 @@ export default function UserDetails({route}) {
   const [editedFirstName, setEditedFirstName] = useState('');
   const [editedLastName, setEditedLastName] = useState('');
   const [editedGender, setEditedGender] = useState('');
-  const [editedDay, setEditedDay] = useState('');
+  const [editedDay, setEditedDay] = useState({day: ''});
   const [editedMonth, setEditedMonth] = useState('');
   const [editedYear, setEditedYear] = useState('');
   const [editedEmail, setEditedEmail] = useState('');
   const [editedPassword, setEditedPassword] = useState('');
   const [editedConfirmPassword, setEditedConfirmPassword] = useState('');
+  const [editedUsername, setEditedUsername] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const [monthPickerVisible, setMonthPickerVisible] = useState(false);
   const [yearPickerVisible, setYearPickerVisible] = useState(false);
@@ -34,16 +36,20 @@ export default function UserDetails({route}) {
   useEffect(() => {
     if (route.params && route.params.userData) {
       const userData = route.params.userData;
-      setProfileImage(userData.profileImage);
+      setProfileImage(userData.profileImage || null); // Ensure profileImage is not undefined
       setEditedFirstName(userData.firstName);
       setEditedLastName(userData.lastName);
       setEditedEmail(userData.email);
-      setEditedPassword(userData.password)
-      setEditedConfirmPassword(userData.confirmPassword)
-      setEditedDay(userData.day)
-      setEditedMonth(userData.selectedMonth)
-      setEditedYear(userData.selectedYear)
-      setEditedGender(userData.selectedGender)
+      setEditedPassword(userData.password);
+      setEditedConfirmPassword(userData.confirmPassword);
+      setEditedDay({
+        day: userData.day ? userData.day : '', // Assuming day is a string, adjust accordingly
+      });
+      setEditedMonth(userData.selectedMonth);
+      setEditedYear(userData.selectedYear !== undefined ? userData.selectedYear.toString() : '');
+      setEditedGender(userData.selectedGender);
+      setEditedUsername(userData.username);
+      setNickname(userData.username);
       
       
       // Set the values for other fields based on the userData object
@@ -51,9 +57,16 @@ export default function UserDetails({route}) {
   }, [route.params]);
 
   const handleProfileImageSelect = () => {
-    // Implement your image selection logic here
-    // Make sure to call setProfileImage with the selected image
+    const options = {
+      title: 'Select Profile Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
   };
+
+  
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -88,17 +101,16 @@ export default function UserDetails({route}) {
   };
 
   const handleMonthConfirm = (date) => {
-    setEditedMonth({ ...editedMonth, month: months[date.getMonth()] });
+    setEditedMonth(months[date.getMonth()]);
     toggleMonthPicker();
   };
 
   const handleYearConfirm = (date) => {
-    setEditedBirthday({ ...editedBirthday, year: date.getFullYear().toString() });
+    setEditedYear(date.getFullYear().toString());
     toggleYearPicker();
   };
 
   const handleDateConfirm = (date) => {
-    // Process the selected date and update the state
     setEditedDay({
       month: date.getMonth() + 1, // Months are 0-based
       day: date.getDate(),
@@ -153,10 +165,7 @@ export default function UserDetails({route}) {
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
-        <Text style={styles.nicknameText}>Nickname</Text>
-        <Text style={styles.editDetailsText} onPress={handleEditClick}>
-          {isEditing ? 'Cancel' : 'Edit User Details'}
-        </Text>
+        <Text style={styles.nicknameText}>{nickname}</Text>
 
         <View style={styles.nameContainer}>
           <TextInput
@@ -183,33 +192,35 @@ export default function UserDetails({route}) {
           editable={isEditing}
         />
 
-
-        <View style={styles.birthdayContainer}>
+<View style={styles.birthdayContainer}>
         <TextInput
-   style={[styles.inputBox, styles.birthdayInput]}
-   value={editedMonth.month}
-   placeholder="Month"
-   editable={isEditing}
-   onFocus={toggleMonthPicker}
-/>
+          style={[styles.inputBox, styles.birthdayInput]}
+          value={editedMonth}
+          onChangeText={(text) => setEditedMonth(text)}
+          placeholder="Month"
+          editable={isEditing}
+          onFocus={toggleMonthPicker}
+        />
 
 <TextInput
   style={[styles.inputBox, styles.birthdayInput]}
-  value={editedDay.toString()} // Convert to string
-  onChangeText={(text) => setEditedDay(text)}
+  value={editedDay.day.toString()} // Convert to string
+  onChangeText={(text) => setEditedDay({ ...editedDay, day: text })}
   placeholder="Day"
   editable={isEditing}
 />
 
-<TextInput
-  style={[styles.inputBox, styles.birthdayInput]}
-  value={editedYear.toString()} // Convert to string
-  onChangeText={(text) => setEditedYear(text)}
-  placeholder="Year"
-  editable={isEditing}
-  onFocus={toggleYearPicker}
-/>
-        </View>
+
+        <TextInput
+          style={[styles.inputBox, styles.birthdayInput]}
+          value={editedYear}
+          onChangeText={(text) => setEditedYear(text)}
+          placeholder="Year"
+          editable={isEditing}
+          onFocus={toggleYearPicker}
+        />
+      </View>
+
         <TextInput
           style={styles.inputBox}
           value={editedEmail}
@@ -233,6 +244,12 @@ export default function UserDetails({route}) {
           secureTextEntry
           editable={isEditing}
         />
+
+        <TouchableOpacity style={styles.editButton} onPress={handleEditClick}>
+          <Text style={styles.editButtonText}>
+            {isEditing ? 'Cancel' : 'Edit User Details'}
+          </Text>
+        </TouchableOpacity>
 
         {isEditing && (
           <TouchableOpacity style={styles.saveButton} onPress={handleSaveClick}>
@@ -310,6 +327,17 @@ const styles = StyleSheet.create({
     fontSize: scale(10),
     right: scale(98),
   },
+  editButton: {
+    backgroundColor: '#5A534A',
+    borderRadius: scale(8),
+    paddingVertical: verticalScale(10),
+    marginTop: verticalScale(10),
+  },
+  editButtonText: {
+    color: '#FFF',
+    fontSize: scale(16),
+    textAlign: 'center',
+  },
   nicknameText: {
     bottom: verticalScale(50),
     color: '#5A534A',
@@ -360,5 +388,3 @@ const styles = StyleSheet.create({
     marginLeft: scale(7),
   },
 });
-
-

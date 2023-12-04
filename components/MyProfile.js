@@ -22,9 +22,12 @@ export default function MyProfile({route}) {
   const [profileImage, setProfileImage] = useState(null);
   const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
-  const [month, setMonth] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
   const [day, setDay] = useState('');
-  const [year, setYear] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -41,9 +44,9 @@ export default function MyProfile({route}) {
     if (route.params && route.params.userData) {
       setUserData(route.params.userData);
       setProfileImage(route.params.userData.profileImage);
-      setMonth(route.params.userData.month || '');
+      setSelectedMonth(route.params.userData.month || '');
       setDay(route.params.userData.day || '');
-      setYear(route.params.userData.year || '');
+      setSelectedYear(route.params.userData.year || '');
       setEmail(route.params.userData.email || '');
     }
   }, [route.params]);
@@ -137,7 +140,6 @@ export default function MyProfile({route}) {
                 </TouchableOpacity>
                 <Text style={styles.nicknameText}>{userData?.username}</Text>
                 <Text style={styles.emailText}>{userData?.email}</Text>
-                <Text style={styles.emailText}>{userData?.password}</Text>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, { backgroundColor: '#DB4E69' }]} onPress={handleTemplates}>
                   <View style={styles.buttonIcon}></View>

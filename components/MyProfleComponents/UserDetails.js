@@ -21,11 +21,9 @@ export default function UserDetails({route}) {
   const [editedFirstName, setEditedFirstName] = useState('');
   const [editedLastName, setEditedLastName] = useState('');
   const [editedGender, setEditedGender] = useState('');
-  const [editedBirthday, setEditedBirthday] = useState({
-    month: '',
-    day: '',
-    year: '',
-  });
+  const [editedDay, setEditedDay] = useState('');
+  const [editedMonth, setEditedMonth] = useState('');
+  const [editedYear, setEditedYear] = useState('');
   const [editedEmail, setEditedEmail] = useState('');
   const [editedPassword, setEditedPassword] = useState('');
   const [editedConfirmPassword, setEditedConfirmPassword] = useState('');
@@ -42,6 +40,11 @@ export default function UserDetails({route}) {
       setEditedEmail(userData.email);
       setEditedPassword(userData.password)
       setEditedConfirmPassword(userData.confirmPassword)
+      setEditedDay(userData.day)
+      setEditedMonth(userData.selectedMonth)
+      setEditedYear(userData.selectedYear)
+      setEditedGender(userData.selectedGender)
+      
       
       // Set the values for other fields based on the userData object
     }
@@ -85,7 +88,7 @@ export default function UserDetails({route}) {
   };
 
   const handleMonthConfirm = (date) => {
-    setEditedBirthday({ ...editedBirthday, month: months[date.getMonth()] });
+    setEditedMonth({ ...editedMonth, month: months[date.getMonth()] });
     toggleMonthPicker();
   };
 
@@ -96,7 +99,7 @@ export default function UserDetails({route}) {
 
   const handleDateConfirm = (date) => {
     // Process the selected date and update the state
-    setEditedBirthday({
+    setEditedDay({
       month: date.getMonth() + 1, // Months are 0-based
       day: date.getDate(),
       year: date.getFullYear(),
@@ -172,29 +175,38 @@ export default function UserDetails({route}) {
           />
         </View>
 
+        <TextInput
+          style={styles.inputBox}
+          value={editedGender}
+          onChangeText={(text) => setEditedGender(text)}
+          placeholder="Gender"
+          editable={isEditing}
+        />
+
 
         <View style={styles.birthdayContainer}>
-          <TextInput
-            style={[styles.inputBox, styles.birthdayInput]}
-            value={editedBirthday.month}
-            placeholder="Month"
-            editable={isEditing}
-            onFocus={toggleMonthPicker}
-          />
-          <TextInput
-            style={[styles.inputBox, styles.birthdayInput]}
-            value={editedBirthday.day}
-            onChangeText={(text) => setEditedBirthday({ ...editedBirthday, day: text })}
-            placeholder="Day"
-            editable={isEditing}
-          />
-          <TextInput
-            style={[styles.inputBox, styles.birthdayInput]}
-            value={editedBirthday.year}
-            placeholder="Year"
-            editable={isEditing}
-            onFocus={toggleYearPicker}
-          />
+        <TextInput
+   style={[styles.inputBox, styles.birthdayInput]}
+   value={editedMonth.month}
+   placeholder="Month"
+   editable={isEditing}
+   onFocus={toggleMonthPicker}
+/>
+
+<TextInput
+   style={[styles.inputBox, styles.birthdayInput]}
+   value={editedDay} // or String(editedDay.text)
+   onChangeText={(text) => setEditedDay({ text })}
+   placeholder="Day"
+   editable={isEditing}
+/>
+<TextInput
+   style={[styles.inputBox, styles.birthdayInput]}
+   value={editedYear} // or String(editedYear.year)
+   placeholder="Year"
+   editable={isEditing}
+   onFocus={toggleYearPicker}
+/>
         </View>
         <TextInput
           style={styles.inputBox}

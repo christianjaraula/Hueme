@@ -30,7 +30,6 @@ import AboutUs from './components/MyProfleComponents/AboutUs';
 import HelpAndFeedback from './components/MyProfleComponents/HelpAndFeedback';
 import SecurityAndPrivacy from './components/MyProfleComponents/SecurityAndPrivacy';
 import TermsOfUse from './components/MyProfleComponents/TermsOfUse';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 

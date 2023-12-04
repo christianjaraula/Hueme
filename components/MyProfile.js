@@ -48,6 +48,7 @@ export default function MyProfile({route}) {
       setDay(route.params.userData.day || '');
       setSelectedYear(route.params.userData.year || '');
       setEmail(route.params.userData.email || '');
+      
     }
   }, [route.params]);
 

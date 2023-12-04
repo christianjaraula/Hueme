@@ -38,7 +38,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState('');
   const [username, setUsername] = useState('');
   const monthPickerRef = useRef(null);
   const navigation = useNavigation();

@@ -31,6 +31,7 @@ export default function MyProfile({route}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     async function loadFont() {
@@ -48,6 +49,7 @@ export default function MyProfile({route}) {
       setDay(route.params.userData.day || '');
       setSelectedYear(route.params.userData.year || '');
       setEmail(route.params.userData.email || '');
+      setUsername(route.params.userData.username || '');
       
     }
   }, [route.params]);

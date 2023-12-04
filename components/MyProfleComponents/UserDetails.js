@@ -27,6 +27,8 @@ export default function UserDetails({route}) {
   const [editedEmail, setEditedEmail] = useState('');
   const [editedPassword, setEditedPassword] = useState('');
   const [editedConfirmPassword, setEditedConfirmPassword] = useState('');
+  const [editedUsername, setEditedUsername] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const [monthPickerVisible, setMonthPickerVisible] = useState(false);
   const [yearPickerVisible, setYearPickerVisible] = useState(false);
@@ -46,6 +48,8 @@ export default function UserDetails({route}) {
       setEditedMonth(userData.selectedMonth);
       setEditedYear(userData.selectedYear !== undefined ? userData.selectedYear.toString() : '');
       setEditedGender(userData.selectedGender);
+      setEditedUsername(userData.username);
+      setNickname(userData.username);
       
       
       // Set the values for other fields based on the userData object
@@ -53,9 +57,16 @@ export default function UserDetails({route}) {
   }, [route.params]);
 
   const handleProfileImageSelect = () => {
-    // Implement your image selection logic here
-    // Make sure to call setProfileImage with the selected image
+    const options = {
+      title: 'Select Profile Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
   };
+
+  
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -154,10 +165,8 @@ export default function UserDetails({route}) {
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
-        <Text style={styles.nicknameText}>Nickname</Text>
-        <Text style={styles.editDetailsText} onPress={handleEditClick}>
-          {isEditing ? 'Cancel' : 'Edit User Details'}
-        </Text>
+        <Text style={styles.nicknameText}>{nickname}</Text>
+
 
         <View style={styles.nameContainer}>
           <TextInput
@@ -237,6 +246,12 @@ export default function UserDetails({route}) {
           editable={isEditing}
         />
 
+        <TouchableOpacity style={styles.editButton} onPress={handleEditClick}>
+          <Text style={styles.editButtonText}>
+            {isEditing ? 'Cancel' : 'Edit User Details'}
+          </Text>
+        </TouchableOpacity>
+        
         {isEditing && (
           <TouchableOpacity style={styles.saveButton} onPress={handleSaveClick}>
             <Text style={styles.saveButtonText}>Save</Text>
@@ -317,6 +332,17 @@ const styles = StyleSheet.create({
     bottom: verticalScale(50),
     color: '#5A534A',
     fontSize: scale(20),
+  },
+  editButton: {
+    backgroundColor: '#5A534A',
+    borderRadius: scale(8),
+    paddingVertical: verticalScale(10),
+    marginTop: verticalScale(10),
+  },
+  editButtonText: {
+    color: '#FFF',
+    fontSize: scale(16),
+    textAlign: 'center',
   },
   inputBox: {
     width: '80%',

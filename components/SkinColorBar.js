@@ -235,9 +235,9 @@ const SkinColorBar = () => {
         <TouchableOpacity onPress={handleIconClick} style={styles.iconContainerStyle}>
           {renderSvg()}
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleIconClick2} style={styles.iconContainerStyle2}>
+        {/* <TouchableOpacity onPress={handleIconClick2} style={styles.iconContainerStyle2}>
           {renderSvg2()}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={handleIconClick3} style={styles.iconContainerStyle3}>
           {renderSvg3()}
         </TouchableOpacity>
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   },
   iconContainerStyle: {
     marginLeft: scale(215),
-    right: scale(125),
+    right: scale(120),
     marginTop: verticalScale(10),
   },
   iconContainerStyle2: {

@@ -33,6 +33,21 @@ export default function UserDetails({route}) {
   const [monthPickerVisible, setMonthPickerVisible] = useState(false);
   const [yearPickerVisible, setYearPickerVisible] = useState(false);
 
+  const buttonStyle = {
+    backgroundColor: '#5A534A',
+    borderRadius: scale(8),
+    paddingVertical: verticalScale(10), // Adjusted height
+    paddingHorizontal: scale(8), // Adjusted width
+    marginTop: verticalScale(50),
+  };
+  
+  const buttonTextStyle = {
+    color: '#FFF',
+    fontSize: scale(10), // Adjusted text size
+    textAlign: 'center',
+  };
+
+
   useEffect(() => {
     if (route.params && route.params.userData) {
       const userData = route.params.userData;
@@ -64,6 +79,11 @@ export default function UserDetails({route}) {
         path: 'images',
       },
     };
+  };
+
+  const handleCancelClick = () => {
+    // Implement your logic for canceling edits
+    setIsEditing(false);
   };
 
   
@@ -245,16 +265,18 @@ export default function UserDetails({route}) {
           editable={isEditing}
         />
 
-        <TouchableOpacity style={styles.editButton} onPress={handleEditClick}>
-          <Text style={styles.editButtonText}>
-            {isEditing ? 'Cancel' : 'Edit User Details'}
+        <TouchableOpacity style={[styles.editButton, buttonStyle]} onPress={handleEditClick}>
+          <Text style={[styles.editButtonText, buttonTextStyle]}>
+            {isEditing ? 'Cancel' : 'Edit User Details'} 
           </Text>
         </TouchableOpacity>
 
+        
+
         {isEditing && (
-          <TouchableOpacity style={styles.saveButton} onPress={handleSaveClick}>
-            <Text style={styles.saveButtonText}>Save</Text>
-          </TouchableOpacity>
+          <TouchableOpacity style={[styles.saveButton, { width: scale(50) }]} onPress={handleSaveClick}>
+          <Text style={styles.saveButtonText}>Save</Text>
+        </TouchableOpacity>
         )}
       </View>
 
@@ -321,23 +343,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
   },
-  editDetailsText: {
-    marginTop: verticalScale(10),
-    color: '#5A534A',
-    fontSize: scale(10),
-    right: scale(98),
-  },
-  editButton: {
-    backgroundColor: '#5A534A',
-    borderRadius: scale(8),
-    paddingVertical: verticalScale(10),
-    marginTop: verticalScale(10),
-  },
-  editButtonText: {
-    color: '#FFF',
-    fontSize: scale(16),
-    textAlign: 'center',
-  },
+
   nicknameText: {
     bottom: verticalScale(50),
     color: '#5A534A',
@@ -358,10 +364,12 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(10),
     marginTop: verticalScale(10),
   },
+
   saveButtonText: {
     color: '#FFF',
-    fontSize: scale(16),
+    fontSize: scale(10),
     textAlign: 'center',
+
   },
   userDetailText: {
     marginTop: verticalScale(10),
@@ -386,5 +394,18 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: scale(5),
     marginLeft: scale(7),
+  },
+  cancelButton: {
+    backgroundColor: 'blue', // Change the background color to blue
+    borderRadius: scale(8),
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: scale(15),
+    marginTop: verticalScale(10),
+  },
+
+  cancelButtonText: {
+    color: '#FFF',
+    fontSize: scale(10),
+    textAlign: 'center',
   },
 });

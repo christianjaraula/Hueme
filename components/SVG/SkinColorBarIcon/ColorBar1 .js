@@ -6,17 +6,17 @@ import Svg, { Rect, Path } from 'react-native-svg';
 const ColorBar1 = () => {
   return (
     
-        <Svg width={42} height={175} viewBox="0 0 27 175" fill="none">
-        <Rect width="27" height="175" rx="6" fill="#FF0000"/>
-        <Rect y="135" width="27" height="40" rx="6" fill="white"/>
-        <Path d="M11.5714 165H15.4286C18.6429 165 19.9286 163 19.9286 158V152C19.9286 147 18.6429 145 15.4286 145H11.5714C8.35716 145 7.07144 147 7.07144 152V158C7.07144 163 8.35716 165 11.5714 165Z" fill="#5A534A"/>
-        <Path d="M10.7679 155L12.5872 157.83L16.2322 152.17" fill="#5A534A"/>
-        <Path d="M10.7679 155L12.5872 157.83L16.2322 152.17M11.5714 165H15.4286C18.6429 165 19.9286 163 19.9286 158V152C19.9286 147 18.6429 145 15.4286 145H11.5714C8.35716 145 7.07144 147 7.07144 152V158C7.07144 163 8.35716 165 11.5714 165Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <Rect x="0.5" y="0.5" width="26" height="174" rx="5.5" fill="#FFF3EA" stroke="#5A534A"/>
-        <Rect x="0.5" y="143.5" width="26" height="31" rx="5.5" fill="white" stroke="#5A534A"/>
-        <Path d="M11.55 165H15.45C18.7 165 20 163.8 20 160.8V157.2C20 154.2 18.7 153 15.45 153H11.55C8.3 153 7 154.2 7 157.2V160.8C7 163.8 8.3 165 11.55 165Z" fill="white"/>
-        <Path d="M10.7375 159L12.577 160.698L16.2625 157.302" fill="white"/>
-        <Path d="M10.7375 159L12.577 160.698L16.2625 157.302M11.55 165H15.45C18.7 165 20 163.8 20 160.8V157.2C20 154.2 18.7 153 15.45 153H11.55C8.3 153 7 154.2 7 157.2V160.8C7 163.8 8.3 165 11.55 165Z" stroke="#5A534A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <Svg width={42} height={175} viewBox="0 0 42 175" fill="none">
+        <Rect width="42" height="175" rx="6" fill="#FF0000"/>
+<Rect y="135" width="42" height="40" rx="6" fill="white"/>
+<Path d="M18 165H24C29 165 31 163 31 158V152C31 147 29 145 24 145H18C13 145 11 147 11 152V158C11 163 13 165 18 165Z" fill="#5A534A"/>
+<Path d="M16.75 155L19.58 157.83L25.25 152.17" fill="#5A534A"/>
+<Path d="M16.75 155L19.58 157.83L25.25 152.17M18 165H24C29 165 31 163 31 158V152C31 147 29 145 24 145H18C13 145 11 147 11 152V158C11 163 13 165 18 165Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<Rect x="0.5" y="0.5" width="41" height="174" rx="5.5" fill="#F5D3B8" stroke="#5A534A"/>
+<Rect x="0.5" y="135.5" width="41" height="39" rx="5.5" fill="white" stroke="#5A534A"/>
+<Path d="M18 165H24C29 165 31 163 31 158V152C31 147 29 145 24 145H18C13 145 11 147 11 152V158C11 163 13 165 18 165Z" fill="white"/>
+<Path d="M16.75 155L19.58 157.83L25.25 152.17" fill="white"/>
+<Path d="M16.75 155L19.58 157.83L25.25 152.17M18 165H24C29 165 31 163 31 158V152C31 147 29 145 24 145H18C13 145 11 147 11 152V158C11 163 13 165 18 165Z" stroke="#5A534A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </Svg>
 
   );

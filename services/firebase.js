@@ -2,8 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth"; // Correct import
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,11 +14,18 @@ const firebaseConfig = {
   messagingSenderId: "300551497520",
   appId: "1:300551497520:web:76b28ab3ae0170d8dd0af5"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-//Firestore DB
+// Use a different variable name for Firebase Authentication
+const firebaseAuth = getAuth(app);
+
+// Firestore DB
 export const db = getFirestore(app);
 
 // Firebase Storage
 export const storage = getStorage(app);
+
+// Firebase Authentication
+export { firebaseAuth as auth }; // Exporting with the name 'auth'

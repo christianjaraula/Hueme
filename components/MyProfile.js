@@ -44,7 +44,7 @@ export default function MyProfile({route}) {
 
     if (route.params && route.params.userData) {
       setUserData(route.params.userData);
-      setProfileImage(route.params.userData.profileImage);
+      setProfileImage(route.params.userData.profileImage || '');
       setSelectedMonth(route.params.userData.month || '');
       setDay(route.params.userData.day || '');
       setSelectedYear(route.params.userData.year || '');

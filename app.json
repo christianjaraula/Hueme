@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "login",
-    "slug": "login",
-    "version": "1.0.0",
+    "name": "Hueme",
+    "slug": "Hueme",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -18,12 +18,17 @@
       "supportsTablet": true
     },
     "android": {
-      "permissions": ["CAMERA", "RECORD_AUDIO"],
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-        
-      }
+      },
+      "package": "com.Hueme.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,6 +40,11 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "df1d3ac2-c6a4-44c1-a160-39c136219afa"
+      }
+    }
   }
 }

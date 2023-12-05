@@ -24,7 +24,7 @@ import LineSVG from './SVG/LineSVG';
 import ProfileContainer from './SignUpComponents/ProfileContainer';
 
 import { db } from "../services/firebase";
-import { doc, setDoc, addDoc, collection } from "firebase/firestore"; 
+import { doc, setDoc, addDoc, collection, getDocs, query, where, isEmpty } from "firebase/firestore"; 
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -140,7 +140,16 @@ const SignUp = () => {
   
     try {
       // Create a reference to the 'users' collection in Firestore
+      const emailQuerySnapshot = await getDocs(query(collection(db, 'account'), where('email', '==', email)));
+      
+
+      if (emailQuerySnapshot.docs.length > 0) {
+        Alert.alert('Email already exists', 'The provided email address is already registered. Please use a different email address.');
+        return;
+      }
+
       const userRef = collection(db, 'account');
+  
   
       // Set the user data in the document
       const docRef = await addDoc(userRef, {

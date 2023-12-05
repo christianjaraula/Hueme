@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Platform,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
@@ -23,8 +23,8 @@ import TermsOfUse from './TermsOfUse'; // Import the TermsOfUse component
 import LineSVG from './SVG/LineSVG';
 import ProfileContainer from './SignUpComponents/ProfileContainer';
 
-import { db } from "../services/firebase";
-import { doc, setDoc, addDoc, collection, getDocs, query, where, isEmpty } from "firebase/firestore"; 
+import { db } from '../services/firebase';
+import { doc, setDoc, addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -64,6 +64,7 @@ const SignUp = () => {
     }
     setMonthPickerVisible(!isMonthPickerVisible);
   };
+
   const toggleYearPicker = () => {
     setYearPickerVisible(!isYearPickerVisible);
   };
@@ -106,20 +107,24 @@ const SignUp = () => {
     }
   };
 
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+  };
+
+  const handleConfirmPasswordChange = (text) => {
+    setConfirmPassword(text);
+  };
+
+  const handleDayInputChange = (text) => {
+    // Only allow numeric input for the day
+    setDay(text.replace(/[^0-9]/g, ''));
+  };
+
+  const isPasswordValid = () => {
+    return password.length >= 8;
+  };
+
   const handleNavigateToSkinColorBar = async () => {
-    // Debug logging to check the values of the fields
-    console.log('firstName:', firstName);
-    console.log('lastName:', lastName);
-    console.log('selectedMonth:', selectedMonth);
-    console.log('selectedYear:', selectedYear);
-    console.log('selectedGender:', selectedGender);
-    console.log('day:', day);
-    console.log('email:', email);
-    console.log('password:', password);
-    console.log('confirmPassword:', confirmPassword);
-    console.log('profileImage:', profileImage);
-    console.log('username:', username);
-  
     // Perform validation checks for required fields
     if (
       !firstName ||
@@ -138,19 +143,34 @@ const SignUp = () => {
       return;
     }
   
+    // Additional password length check
+    if (password.length < 8) {
+      Alert.alert('Password Length', 'Password must be at least 8 characters long.');
+      return;
+    }
+  
+    // Additional password matching check
+    if (password !== confirmPassword) {
+      Alert.alert('Password Mismatch', 'Password and Confirm Password do not match.');
+      return;
+    }
+  
     try {
       // Create a reference to the 'users' collection in Firestore
-      const emailQuerySnapshot = await getDocs(query(collection(db, 'account'), where('email', '==', email)));
-      
-
+      const emailQuerySnapshot = await getDocs(
+        query(collection(db, 'account'), where('email', '==', email))
+      );
+  
       if (emailQuerySnapshot.docs.length > 0) {
-        Alert.alert('Email already exists', 'The provided email address is already registered. Please use a different email address.');
+        Alert.alert(
+          'Email already exists',
+          'The provided email address is already registered. Please use a different email address.'
+        );
         return;
       }
 
       const userRef = collection(db, 'account');
-  
-  
+
       // Set the user data in the document
       const docRef = await addDoc(userRef, {
         firstName: firstName,
@@ -165,9 +185,9 @@ const SignUp = () => {
         profileImage: profileImage,
         username: username,
       });
-  
+
       console.log('User data added with ID: ', docRef.id);
-  
+
       // If all required fields are filled and data is added to Firestore, navigate to the next screen
       navigation.navigate('SkinColorBar');
     } catch (error) {
@@ -175,8 +195,6 @@ const SignUp = () => {
       Alert.alert('Error', 'An error occurred while creating your account. Please try again.');
     }
   };
-  
-
 
   return (
     <KeyboardAvoidingView
@@ -237,27 +255,36 @@ const SignUp = () => {
         </View>
 
         <View style={styles.genderBox}>
-        <Text style={styles.label}>Gender</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedGender}
-            onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
-          >
-            <Picker.Item label="Select Gender" value="" />
-            <Picker.Item label="Male" value="Male" />
-            <Picker.Item label="Female" value="Female" />
-          </Picker>
+          <Text style={styles.label}>Gender</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={selectedGender}
+              onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
+            >
+              <Picker.Item label="Select Gender" value="" />
+              <Picker.Item label="Male" value="Male" />
+              <Picker.Item label="Female" value="Female" />
+            </Picker>
+          </View>
         </View>
-      </View>
 
         <View style={styles.dateContainer}>
           <View style={styles.dateBox}>
             <Text style={styles.label}>Month</Text>
             <TouchableOpacity onPress={toggleMonthPicker}>
-              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedMonth || 'Select Month'}</Text>
+              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>
+                {selectedMonth || 'Select Month'}
+              </Text>
             </TouchableOpacity>
             {isMonthPickerVisible && (
-              <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#F0EDE7', zIndex: 1 }}>
+              <View
+                style={{
+                  ...styles.monthPicker,
+                  position: 'absolute',
+                  backgroundColor: '#F0EDE7',
+                  zIndex: 1,
+                }}
+              >
                 <ScrollView
                   ref={monthPickerRef}
                   contentContainerStyle={styles.monthPickerContent}
@@ -283,42 +310,51 @@ const SignUp = () => {
               style={styles.inputBox}
               placeholder="Enter Day"
               value={day}
-              onChangeText={(text) => setDay(text)}
+              onChangeText={handleDayInputChange}
             />
           </View>
 
           <View style={styles.dateBox}>
-        <Text style={styles.label}>Year</Text>
-        <TouchableOpacity onPress={toggleYearPicker}>
-          <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>{selectedYear || 'Select Year' }</Text>
-        </TouchableOpacity>
-        {isYearPickerVisible && (
-          <View style={{ ...styles.monthPicker, position: 'absolute', backgroundColor: '#F0EDE7', zIndex: 1 }}>
-            <ScrollView
-              ref={monthPickerRef} // You can reuse the monthPickerRef
-              contentContainerStyle={styles.monthPickerContent}
-            >
-              {/* Render your year items here */}
-              {/* For example, you can render a range of years */}
-              {Array.from({ length: 50 }, (_, index) => {
-                const year = new Date().getFullYear() - index;
-                return (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      setSelectedYear(year);
-                      toggleYearPicker();
-                    }}
-                    style={styles.monthItem}
-                  >
-                    <Text>{year}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </ScrollView>
+            <Text style={styles.label}>Year</Text>
+            <TouchableOpacity onPress={toggleYearPicker}>
+              <Text style={{ ...styles.inputBox, textAlign: 'center', paddingTop: 7 }}>
+                {selectedYear || 'Select Year'}
+              </Text>
+            </TouchableOpacity>
+            {isYearPickerVisible && (
+              <View
+                style={{
+                  ...styles.monthPicker,
+                  position: 'absolute',
+                  backgroundColor: '#F0EDE7',
+                  zIndex: 1,
+                }}
+              >
+                <ScrollView
+                  ref={monthPickerRef} // You can reuse the monthPickerRef
+                  contentContainerStyle={styles.monthPickerContent}
+                >
+                  {/* Render your year items here */}
+                  {/* For example, you can render a range of years */}
+                  {Array.from({ length: 50 }, (_, index) => {
+                    const year = new Date().getFullYear() - index;
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => {
+                          setSelectedYear(year);
+                          toggleYearPicker();
+                        }}
+                        style={styles.monthItem}
+                      >
+                        <Text>{year}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            )}
           </View>
-        )}
-      </View>
         </View>
 
         <View style={styles.emailBox}>
@@ -340,7 +376,7 @@ const SignUp = () => {
             placeholder="Enter Password"
             secureTextEntry={true}
             value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={handlePasswordChange}
           />
         </View>
 
@@ -352,17 +388,17 @@ const SignUp = () => {
             placeholder="Confirm Password"
             secureTextEntry={true}
             value={confirmPassword}
-            onChangeText={(text) => setConfirmPassword(text)}
+            onChangeText={handleConfirmPasswordChange}
           />
         </View>
 
         {/* <TermsOfUse handleTermsOfUseClick={handleTermsOfUseClick} /> */}
-          <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
-            <ArrowButtonLeft width={40} height={40} color="#5A534A" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.arrowButton2} onPress={handleNavigateToSkinColorBar}>
-            <ArrowButtonRight width={40} height={40} color="#5A534A" />
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
+          <ArrowButtonLeft width={40} height={40} color="#5A534A" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.arrowButton2} onPress={handleNavigateToSkinColorBar}>
+          <ArrowButtonRight width={40} height={40} color="#5A534A" />
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );

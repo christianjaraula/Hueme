@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, TextInput } from 'react-native';
 import * as Font from 'expo-font';
 import { Camera } from 'expo-camera';
 import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
@@ -27,7 +27,6 @@ import { useRoute } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import { scale, verticalScale, moderateScale } from './scalingUtils'; // Import the scaling utilities
 
-
 const SkinColorBar = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [cameraPermission, setCameraPermission] = useState(null);
@@ -40,6 +39,9 @@ const SkinColorBar = () => {
   const [active7, setActive7] = useState(false);
   const [active8, setActive8] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(true);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [day, setDay] = useState('');
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -73,6 +75,36 @@ const SkinColorBar = () => {
       setCameraVisible(params.cameraVisible);
     }
   }, [route]);
+
+  const handlePasswordChange = (text) => {
+    // Validate password length
+    if (text.length >= 8) {
+      setPassword(text);
+    } else {
+      // You may want to display an error message or handle this validation in your UI
+      console.warn('Password must be at least 8 characters long');
+    }
+  };
+
+  const handleConfirmPasswordChange = (text) => {
+    // Validate password match
+    if (text === password) {
+      setConfirmPassword(text);
+    } else {
+      // You may want to display an error message or handle this validation in your UI
+      console.warn('Passwords do not match');
+    }
+  };
+
+  const handleDayChange = (text) => {
+    // Validate day input to allow only numbers
+    if (/^\d+$/.test(text)) {
+      setDay(text);
+    } else {
+      // You may want to display an error message or handle this validation in your UI
+      console.warn('Day input should contain only numbers');
+    }
+  };
 
   const renderBorderColor = () => {
     if (active1) {
@@ -193,9 +225,42 @@ const SkinColorBar = () => {
   const renderSvg7 = () => (active7 ? <ColorBar7Active /> : <ColorBar7 />);
   const renderSvg8 = () => (active8 ? <ColorBar8Active /> : <ColorBar8 />);
 
-  const handleNavigateToTemplates = () => {
-    setCameraVisible(false);
-    navigation.navigate('Templates');
+  const isAnyRenderSvgActive = () => {
+    return active1 || active2 || active3 || active4 || active5 || active6 || active7 || active8;
+  };
+
+  const handleNavigateToDisplay = () => {
+    // Check if any renderSvg is active
+    if (!isAnyRenderSvgActive()) {
+      Alert.alert('Select a Skin Color', 'Please select a skin color before proceeding.');
+      return;
+    }
+
+    // Check if the user is logged in (You may need to implement your own logic here)
+    const userIsLoggedIn = false; // Replace with your authentication logic
+
+    if (userIsLoggedIn) {
+      // If logged in, navigate to the 'Display' screen
+      navigation.navigate('Home');
+    } else {
+      // If not logged in, show a login notice
+      Alert.alert(
+        'Login Required',
+        'Please login to access this feature.',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Login',
+            onPress: () => {
+              // Implement your login logic here
+              // For now, you can navigate to the 'Display' screen as a placeholder
+              navigation.navigate('Home');
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   };
 
   return fontLoaded && cameraPermission === 'granted' ? (
@@ -259,7 +324,7 @@ const SkinColorBar = () => {
         <TouchableOpacity style={styles.arrowButton} onPress={() => navigation.goBack()}>
           <ArrowButtonLeft width={scale(40)} height={scale(40)} color="#5A534A" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleNavigateToTemplates} style={styles.arrowButton2}>
+        <TouchableOpacity onPress={handleNavigateToDisplay} style={styles.arrowButton2}>
           <ArrowButtonRight width={scale(40)} height={scale(40)} color="#5A534A" />
         </TouchableOpacity>
       </View>
@@ -382,4 +447,3 @@ const styles = StyleSheet.create({
 });
 
 export default SkinColorBar;
-

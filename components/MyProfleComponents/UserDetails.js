@@ -32,6 +32,7 @@ export default function UserDetails({ route }) {
 
   const [monthPickerVisible, setMonthPickerVisible] = useState(false);
   const [yearPickerVisible, setYearPickerVisible] = useState(false);
+  
 
   useEffect(() => {
     if (route.params && route.params.userData) {
